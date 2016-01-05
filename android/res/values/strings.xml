@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ahhh-round</string>
+    <string name="interstitial_ad_unit_id">FIXME__ADMOB_PUBLISHER_ID</string>
+    <string name="app_id">FIXME__GMS_GAMES_APP_ID</string>
+    <string name="leaderboard_id">FIXME__GAMES_HIGHSCORE_LEADERBOARD_ID</string>
+</resources>
