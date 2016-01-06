@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.crashlytics.android.Crashlytics;
 import com.gamestridestudios.ahhh_round.events.EnableLeaderboardEvent;
 import com.gamestridestudios.ahhh_round.events.RateAppEvent;
 import com.gamestridestudios.ahhh_round.events.ShowInterstitialAdEvent;
@@ -22,6 +23,7 @@ import com.google.example.games.basegameutils.GameHelper;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.squareup.otto.ThreadEnforcer;
+import io.fabric.sdk.android.Fabric;
 
 public class AndroidLauncher extends AndroidApplication {
     private InterstitialAd interstitialAd;
@@ -31,6 +33,7 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Fabric.with(this, new Crashlytics());
 
         bus = new Bus(ThreadEnforcer.ANY);
         bus.register(this);
@@ -84,8 +87,9 @@ public class AndroidLauncher extends AndroidApplication {
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("B719ECEE7859FB315CFFFBAE97592ADE")
-                .build();
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("B719ECEE7859FB315CFFFBAE97592ADE")
+                    .build();
         interstitialAd.loadAd(adRequest);
     }
 

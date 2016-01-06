@@ -41,6 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AhhhRound extends ApplicationAdapter {
+    public static final boolean IS_TAKING_FIRST_SCREENSHOT = false;
+    public static final boolean IS_TAKING_SECOND_SCREENSHOT = false;
+
     private static final String[] CENTER_CIRCLE_COLORS = new String[]{"2E4052","669BBC","0F7173","3C6997","789ABB","419D78","618985","2274A5","555B6E","437C90"};
     private static final String[] GAME_OVER_PHRASES = new String[]{"Oops!", "Ouch!", "Ahhh!", "Yikes!", "Oh no!", "Uh oh!"};
     private static final String COLOR_OFF_WHITE_STRING = "eaf2e3";
@@ -70,7 +73,7 @@ public class AhhhRound extends ApplicationAdapter {
     private boolean isLeaderboardEnabled;
     private float deltaTime = -1;
     private int score;
-    private double timeSinceLastAdDisplayed = 100;
+    private long timeLastAdDisplayed;
     private int gamesSinceLastAd;
     private double jumpElapsedTime = -1;
     private float jumpStartAngle;
@@ -131,7 +134,9 @@ public class AhhhRound extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
 
         if (readyToPlay) {
-            updatePlayerPosition();
+            if (!IS_TAKING_FIRST_SCREENSHOT && !IS_TAKING_SECOND_SCREENSHOT) {
+                updatePlayerPosition();
+            }
             spawnEnemyIfNecessary();
             checkForCollisions();
             updateTimeSensitiveVariables();
@@ -154,7 +159,13 @@ public class AhhhRound extends ApplicationAdapter {
         jumpHeight = playerRadius * 2.1963f;
         regularFontSize = (int) (width / 11f);
         scoreFontSize = (int) (width / 6.4f);
-        currentCircleColorIndex = (int) (Math.random() * CENTER_CIRCLE_COLORS.length);
+        if (IS_TAKING_FIRST_SCREENSHOT) {
+            currentCircleColorIndex = 1;
+        } else if (IS_TAKING_SECOND_SCREENSHOT) {
+            currentCircleColorIndex = 3;
+        } else {
+            currentCircleColorIndex = (int) (Math.random() * CENTER_CIRCLE_COLORS.length);
+        }
         colorOffWhite = Color.valueOf(COLOR_OFF_WHITE_STRING);
         colorOffBlack = Color.valueOf(COLOR_OFF_BLACK_STRING);
         colorGray = Color.valueOf(COLOR_GRAY_STRING);
@@ -184,32 +195,31 @@ public class AhhhRound extends ApplicationAdapter {
         scoreFontParams.fontParameters.size = scoreFontSize;
         assetManager.load("scoreFont", BitmapFont.class, scoreFontParams);
 
-        TextureLoader.TextureParameter textureParam = new TextureLoader.TextureParameter();
-        textureParam.minFilter = Texture.TextureFilter.MipMapNearestNearest;
-        textureParam.magFilter = Texture.TextureFilter.Linear;
-        textureParam.genMipMaps = true;
-        assetManager.load("sleeping_player.png", Texture.class, textureParam);
-        assetManager.load("player.png", Texture.class, textureParam);
-        assetManager.load("dead_player.png", Texture.class, textureParam);
-        TextureLoader.TextureParameter enemyTextureParam = new TextureLoader.TextureParameter();
-        enemyTextureParam.minFilter = Texture.TextureFilter.Linear;
-        enemyTextureParam.magFilter = Texture.TextureFilter.Linear;
-        enemyTextureParam.genMipMaps = true;
-        assetManager.load("enemy.png", Texture.class, enemyTextureParam);
-        TextureLoader.TextureParameter iconParams = new TextureLoader.TextureParameter();
-        iconParams.minFilter = Texture.TextureFilter.Linear;
-        iconParams.magFilter = Texture.TextureFilter.Linear;
-        iconParams.genMipMaps = true;
-        assetManager.load("fa-play.png", Texture.class, iconParams);
-        assetManager.load("fa-star.png", Texture.class, iconParams);
-        assetManager.load("fa-share-alt.png", Texture.class, iconParams);
-        assetManager.load("fa-volume-off.png", Texture.class, iconParams);
-        assetManager.load("fa-volume-up.png", Texture.class, iconParams);
-        assetManager.load("fa-bar-chart.png", Texture.class, iconParams);
-        TextureLoader.TextureParameter happyEnemyParam = new TextureLoader.TextureParameter();
-        happyEnemyParam.minFilter = Texture.TextureFilter.Linear;
-        happyEnemyParam.magFilter = Texture.TextureFilter.Linear;
-        assetManager.load("happy_enemy.png", Texture.class, happyEnemyParam);
+        TextureLoader.TextureParameter fastSquareTexture = new TextureLoader.TextureParameter();
+        fastSquareTexture.minFilter = Texture.TextureFilter.MipMapNearestNearest;
+        fastSquareTexture.magFilter = Texture.TextureFilter.Linear;
+        fastSquareTexture.genMipMaps = true;
+        TextureLoader.TextureParameter niceSqaureTexture = new TextureLoader.TextureParameter();
+        niceSqaureTexture.minFilter = Texture.TextureFilter.Linear;
+        niceSqaureTexture.magFilter = Texture.TextureFilter.Linear;
+        niceSqaureTexture.genMipMaps = true;
+        TextureLoader.TextureParameter niceRectangularTexture = new TextureLoader.TextureParameter();
+        niceRectangularTexture.minFilter = Texture.TextureFilter.Linear;
+        niceRectangularTexture.magFilter = Texture.TextureFilter.Linear;
+
+        assetManager.load("sleeping_player.png", Texture.class, IS_TAKING_FIRST_SCREENSHOT ? niceSqaureTexture : fastSquareTexture);
+        assetManager.load("player.png", Texture.class, fastSquareTexture);
+        assetManager.load("dead_player.png", Texture.class, niceSqaureTexture);
+        assetManager.load("enemy.png", Texture.class, niceSqaureTexture);
+        assetManager.load("happy_enemy.png", Texture.class, niceRectangularTexture);
+
+        assetManager.load("fa-play.png", Texture.class, niceSqaureTexture);
+        assetManager.load("fa-star.png", Texture.class, niceSqaureTexture);
+        assetManager.load("fa-share-alt.png", Texture.class, niceSqaureTexture);
+        assetManager.load("fa-volume-off.png", Texture.class, niceSqaureTexture);
+        assetManager.load("fa-volume-up.png", Texture.class, niceSqaureTexture);
+        assetManager.load("fa-bar-chart.png", Texture.class, niceSqaureTexture);
+
 
         assetManager.load("die.wav", Sound.class);
         assetManager.load("jump1.wav", Sound.class);
@@ -227,7 +237,16 @@ public class AhhhRound extends ApplicationAdapter {
         setupEnemies();
         setupLabels();
         setupButtons();
-        setToSleeping();
+        if (IS_TAKING_SECOND_SCREENSHOT) {
+            enableLeaderboard(null);
+            tapToJumpLabel.getColor().a = 0;
+            score = 13;
+            prefs.putInteger("HIGHSCORE", 13);
+            prefs.flush();
+            gameOver(getFakeEnemyForScreenshot());
+        } else {
+            setToSleeping();
+        }
     }
 
     private void setupFonts() {
@@ -264,8 +283,15 @@ public class AhhhRound extends ApplicationAdapter {
         player = new Image();
         player.setBounds(0, 0, playerRadius * 2, playerRadius * 2);
         player.setOrigin(playerRadius, playerRadius);
-        player.setRotation(180);
-        player.setPosition(width / 2 - playerRadius, height / 2 - centerCircleRadius - playerRadius * 2);
+        if (IS_TAKING_FIRST_SCREENSHOT) {
+            player.setPosition(width / 2 - playerRadius, height / 2 + centerCircleRadius);
+        } else if (IS_TAKING_SECOND_SCREENSHOT) {
+            player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get("dead_player.png", Texture.class))));
+            player.setPosition(width / 2 - playerRadius, height / 2 - playerRadius);
+        } else {
+            player.setRotation(180);
+            player.setPosition(width / 2 - playerRadius, height / 2 - centerCircleRadius - playerRadius * 2);
+        }
         stage.addActor(player);
     }
 
@@ -275,19 +301,19 @@ public class AhhhRound extends ApplicationAdapter {
 
     private void setupLabels() {
         Label.LabelStyle defaultStyle = new Label.LabelStyle(defaultFont, colorOffBlack);
-        gameOverLabel = new CenteredLabel("", defaultStyle, regularFontSize, width, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.25f);
+        gameOverLabel = new CenteredLabel("", defaultStyle, regularFontSize, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.25f);
         gameOverLabel.getColor().a = 0;
         stage.addActor(gameOverLabel);
-        gameOverScoreLabel = new CenteredLabel("", defaultStyle, regularFontSize, width, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.5f);
+        gameOverScoreLabel = new CenteredLabel("", defaultStyle, regularFontSize, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.5f);
         gameOverScoreLabel.getColor().a = 0;
         stage.addActor(gameOverScoreLabel);
-        gameOverHighScoreLabel = new CenteredLabel("", defaultStyle, regularFontSize, width, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.75f);
+        gameOverHighScoreLabel = new CenteredLabel("", defaultStyle, regularFontSize, height, width / 2, height - (height / 2 - centerCircleRadius) * 0.75f);
         gameOverHighScoreLabel.getColor().a = 0;
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new CenteredLabel("TAP TO JUMP", defaultStyle, regularFontSize, width, height, width / 2, (height / 2 - centerCircleRadius) * 0.5f);
+        tapToJumpLabel = new CenteredLabel("TAP TO JUMP", defaultStyle, regularFontSize, height, width / 2, (height / 2 - centerCircleRadius) * 0.5f);
         stage.addActor(tapToJumpLabel);
         Label.LabelStyle inGameScoreStyle = new Label.LabelStyle(scoreFont, colorOffWhite);
-        inGameScoreLabel = new CenteredLabel("0", inGameScoreStyle, scoreFontSize, width, height, width / 2, height / 2);
+        inGameScoreLabel = new CenteredLabel("0", inGameScoreStyle, scoreFontSize, height, width / 2, height / 2);
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
     }
@@ -516,7 +542,6 @@ public class AhhhRound extends ApplicationAdapter {
 
     private void updateTimeSensitiveVariables() {
         timeSinceLastEnemySpawn += Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f);
-        timeSinceLastAdDisplayed += Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f);
     }
 
     private boolean isAngleBetween(double target, double angle1, double angle2) {
@@ -534,13 +559,26 @@ public class AhhhRound extends ApplicationAdapter {
         return angle1 <= target || target <= angle2;
     }
 
+    private Image getFakeEnemyForScreenshot() {
+        Image enemy = new Image(assetManager.get("enemy.png", Texture.class));
+        enemy.setBounds(0, 0, playerRadius * 2, playerRadius * 2);
+        enemy.setOrigin(playerRadius, playerRadius);
+        double selectedAngle = Math.PI * 0.75;
+        enemy.setRotation((float) (selectedAngle * 180.0 / Math.PI - 90));
+        enemy.setPosition((float) (Math.cos(selectedAngle) * (centerCircleRadius + playerRadius) + width / 2d - playerRadius), (float) (Math.sin(selectedAngle) * (centerCircleRadius + playerRadius) + height / 2d - playerRadius));
+        stage.addActor(enemy);
+        enemies.add(enemy);
+        timeSinceLastEnemySpawn = 0;
+        return enemy;
+    }
+
     private void gameOver(Image enemyThatKilledPlayer) {
         isTransitioningToMenu = true;
         gamesSinceLastAd++;
         stage.addAction(Actions.sequence(Actions.delay(0.5f), Actions.run(new Runnable() {
             @Override
             public void run() {
-                if (gamesSinceLastAd > gameCountBeforeAdIsDisplayed && timeSinceLastAdDisplayed >= timeBeforeAdIsDisplayed) {
+                if (gamesSinceLastAd > gameCountBeforeAdIsDisplayed && System.currentTimeMillis() - timeLastAdDisplayed >= timeBeforeAdIsDisplayed * 1000) {
                     bus.post(new ShowInterstitialAdEvent());
                 }
             }
@@ -550,9 +588,9 @@ public class AhhhRound extends ApplicationAdapter {
         jumpElapsedTime = -1;
         player.setZIndex(centerCircle.getZIndex() + 1);
         happyEnemy = new Image(assetManager.get("happy_enemy.png", Texture.class));
-        happyEnemy.setBounds(0, 0, playerRadius * 2f * (10f / 9f), (97f * playerRadius * 2f * (10f / 9f)) / 101);
-        happyEnemy.setOrigin(happyEnemy.getWidth() / 2, 0.47f * happyEnemy.getHeight());
-        happyEnemy.setPosition(enemyThatKilledPlayer.getX() + playerRadius - happyEnemy.getWidth() / 2, enemyThatKilledPlayer.getY() + playerRadius - happyEnemy.getHeight() / 2);
+        happyEnemy.setBounds(0, 0, playerRadius * 2f * 1.1085f, playerRadius * 2f * 1.0542f);
+        happyEnemy.setOrigin(happyEnemy.getWidth() / 2, 0.4742f * happyEnemy.getHeight());
+        happyEnemy.setPosition(enemyThatKilledPlayer.getX() + playerRadius - happyEnemy.getWidth() / 2, enemyThatKilledPlayer.getY() + playerRadius - happyEnemy.getHeight() * 0.4742f);
         happyEnemy.setRotation(enemyThatKilledPlayer.getRotation());
         happyEnemy.getColor().a = 0;
         happyEnemy.setZIndex(player.getZIndex() + 1);
@@ -565,10 +603,12 @@ public class AhhhRound extends ApplicationAdapter {
         }
         enemyThatKilledPlayer.addAction(Actions.fadeOut(0.5f));
         happyEnemy.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.rotateTo(0, 1)));
-        spinPlayerAction = Actions.repeat(-1, Actions.rotateBy(180, 1));
-        player.addAction(spinPlayerAction);
-        movePlayerToCenterAction = Actions.moveTo(width / 2 - playerRadius, height / 2 - playerRadius, 2);
-        player.addAction(movePlayerToCenterAction);
+        if (!IS_TAKING_SECOND_SCREENSHOT) {
+            spinPlayerAction = Actions.repeat(-1, Actions.rotateBy(180, 1));
+            player.addAction(spinPlayerAction);
+            movePlayerToCenterAction = Actions.moveTo(width / 2 - playerRadius, height / 2 - playerRadius, 2);
+            player.addAction(movePlayerToCenterAction);
+        }
         inGameScoreLabel.addAction(Actions.fadeOut(0.5f));
         gameOverLabel.setText(GAME_OVER_PHRASES[(int) (Math.random() * GAME_OVER_PHRASES.length)]);
         gameOverLabel.addAction(Actions.fadeIn(0.5f));
@@ -615,7 +655,7 @@ public class AhhhRound extends ApplicationAdapter {
 
     @Subscribe
     public void successfullyShowedAd(SuccessfullyShowedAdEvent event) {
-        timeSinceLastAdDisplayed = 0;
+        timeLastAdDisplayed = System.currentTimeMillis();
         gamesSinceLastAd = 0;
     }
 

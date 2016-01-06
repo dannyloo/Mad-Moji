@@ -2,9 +2,11 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
@@ -31,6 +33,12 @@ allprojects {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: "io.fabric"
+
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
 
     configurations { natives }
 
@@ -48,6 +56,9 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+        compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+            transitive = true;
+        }
     }
 }
 
