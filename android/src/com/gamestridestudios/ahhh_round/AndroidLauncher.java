@@ -14,7 +14,7 @@ import com.gamestridestudios.ahhh_round.events.ShowInterstitialAdEvent;
 import com.gamestridestudios.ahhh_round.events.ShowLeaderboardEvent;
 import com.gamestridestudios.ahhh_round.events.ShowShareDialogEvent;
 import com.gamestridestudios.ahhh_round.events.SuccessfullyShowedAdEvent;
-import com.gamestridestudios.ahhh_round.events.UpdateLeaderboardEvent;
+import com.gamestridestudios.ahhh_round.events.UpdateGooglePlayGamesEvent;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -137,12 +137,27 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
     @Subscribe
-    public void updateLeaderboard(final UpdateLeaderboardEvent event) {
+    public void updateGooglePlayGames(final UpdateGooglePlayGamesEvent event) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (gameHelper.isSignedIn()) {
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), getResources().getString(R.string.leaderboard_id), event.score);
+                    if (event.score >= 1) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), getResources().getString(R.string.achievement_1));
+                    }
+                    if (event.score >= 5) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), getResources().getString(R.string.achievement_5));
+                    }
+                    if (event.score >= 10) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), getResources().getString(R.string.achievement_10));
+                    }
+                    if (event.score >= 25) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), getResources().getString(R.string.achievement_25));
+                    }
+                    if (event.score >= 100) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), getResources().getString(R.string.achievement_100));
+                    }
                 }
             }
         });

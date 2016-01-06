@@ -4,4 +4,9 @@
     <string name="interstitial_ad_unit_id">FIXME__ADMOB_PUBLISHER_ID</string>
     <string name="app_id">FIXME__GMS_GAMES_APP_ID</string>
     <string name="leaderboard_id">FIXME__GAMES_HIGHSCORE_LEADERBOARD_ID</string>
+    <string name="achievement_1">FIXME__GAMES_HIGHSCORE_1_ACHIEVEMENT_ID</string>
+    <string name="achievement_5">FIXME__GAMES_HIGHSCORE_5_ACHIEVEMENT_ID</string>
+    <string name="achievement_10">FIXME__GAMES_HIGHSCORE_10_ACHIEVEMENT_ID</string>
+    <string name="achievement_25">FIXME__GAMES_HIGHSCORE_25_ACHIEVEMENT_ID</string>
+    <string name="achievement_100">FIXME__GAMES_HIGHSCORE_100_ACHIEVEMENT_ID</string>
 </resources>

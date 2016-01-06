@@ -33,7 +33,7 @@ import com.gamestridestudios.ahhh_round.events.ShowInterstitialAdEvent;
 import com.gamestridestudios.ahhh_round.events.ShowLeaderboardEvent;
 import com.gamestridestudios.ahhh_round.events.ShowShareDialogEvent;
 import com.gamestridestudios.ahhh_round.events.SuccessfullyShowedAdEvent;
-import com.gamestridestudios.ahhh_round.events.UpdateLeaderboardEvent;
+import com.gamestridestudios.ahhh_round.events.UpdateGooglePlayGamesEvent;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -633,7 +633,7 @@ public class AhhhRound extends ApplicationAdapter {
             prefs.putInteger("HIGHSCORE", score);
             prefs.flush();
         }
-        bus.post(new UpdateLeaderboardEvent(score));
+        bus.post(new UpdateGooglePlayGamesEvent(score));
     }
 
     private void jump() {

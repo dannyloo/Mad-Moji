@@ -1,9 +1,9 @@
 package com.gamestridestudios.ahhh_round.events;
 
-public class UpdateLeaderboardEvent {
+public class UpdateGooglePlayGamesEvent {
     public final int score;
 
-    public UpdateLeaderboardEvent(int score) {
+    public UpdateGooglePlayGamesEvent(int score) {
         this.score = score;
     }
 }
