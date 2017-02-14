@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class RoundButton extends Group {
-    private float radius;
+public class RoundButton extends Group implements AhhhroundGameElement {
+    private double radius;
     private Image buttonCircle;
     private Image buttonIcon;
     private InputListener clickListener;
 
-    public RoundButton(float radius, Texture icon, float iconSize, float rightOffset, Color buttonColor, Color iconColor) {
+    public RoundButton(double radius, Texture icon, double iconSize, double rightOffset, Color buttonColor, Color iconColor) {
         this.radius = radius;
-        setBounds(0, 0, (float) Math.ceil(radius * 2), (float) Math.ceil(radius * 2));
+        setBounds(0, 0, Math.ceil(radius * 2), Math.ceil(radius * 2));
 
         Pixmap buttonPixmap = new Pixmap((int) Math.ceil(radius * 2) + 1, (int) Math.ceil(radius * 2) + 1, Pixmap.Format.RGBA8888);
         buttonPixmap.setColor(Color.WHITE);
@@ -38,7 +38,7 @@ public class RoundButton extends Group {
         buttonIcon.setColor(iconColor);
     }
 
-    public void setIconSizeAndRightOffset(float iconSize, float rightOffset) {
+    public void setIconSizeAndRightOffset(double iconSize, double rightOffset) {
         buttonIcon.setBounds(radius - iconSize / 2 + rightOffset, radius - iconSize / 2, iconSize, iconSize);
     }
 
@@ -50,8 +50,33 @@ public class RoundButton extends Group {
         buttonIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(icon)));
     }
 
-    public void setPositionCenter(float x, float y) {
+    public void setPositionCenter(double x, double y) {
         setPosition(x - radius, y - radius);
+    }
+
+    @Override
+    public void setVisibility(boolean visible) {
+        getColor().a = visible ? 1 : 0;
+    }
+
+    @Override
+    public void fadeIn(double time) {
+        addAction(Actions.fadeIn((float) time));
+    }
+
+    @Override
+    public void fadeOut(double time) {
+        addAction(Actions.fadeOut((float) time));
+    }
+
+    @Override
+    public void setPosition(double x, double y) {
+        setPosition((float) x, (float) y);
+    }
+
+    @Override
+    public void setBounds(double x, double y, double w, double h) {
+        setBounds((float) x, (float) y, (float) w, (float) h);
     }
 
     public void setClickListener(Runnable action) {
@@ -74,6 +99,7 @@ public class RoundButton extends Group {
             if (Math.sqrt(Math.pow(radius - x, 2) + Math.pow(radius - y, 2)) <= radius) {
                 action.run();
             }
+            event.handle();
             return super.touchDown(event, x, y, pointer, button);
         }
     }

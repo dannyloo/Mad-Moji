@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ahhh-round</string>
+
     <string name="interstitial_ad_unit_id">FIXME__ADMOB_PUBLISHER_ID</string>
     <string name="app_id">FIXME__GMS_GAMES_APP_ID</string>
-    <string name="leaderboard_id">FIXME__GAMES_HIGHSCORE_LEADERBOARD_ID</string>
-    <string name="achievement_1">FIXME__GAMES_HIGHSCORE_1_ACHIEVEMENT_ID</string>
-    <string name="achievement_5">FIXME__GAMES_HIGHSCORE_5_ACHIEVEMENT_ID</string>
-    <string name="achievement_10">FIXME__GAMES_HIGHSCORE_10_ACHIEVEMENT_ID</string>
-    <string name="achievement_25">FIXME__GAMES_HIGHSCORE_25_ACHIEVEMENT_ID</string>
-    <string name="achievement_100">FIXME__GAMES_HIGHSCORE_100_ACHIEVEMENT_ID</string>
+    <string name="highscore_leaderboard_id">FIXME__GAMES_HIGHSCORE_LEADERBOARD_ID</string>
+    <string name="total_jumps_leaderboard_id">FIXME__GAMES_TOTAL_JUMPS_LEADERBOARD_ID</string>
+    <string name="total_plays_leaderboard_id">FIXME__GAMES_TOTAL_PLAYS_LEADERBOARD_ID</string>
+    <string name="achievement_1_id">FIXME__GAMES_HIGHSCORE_1_ACHIEVEMENT_ID</string>
+    <string name="achievement_5_id">FIXME__GAMES_HIGHSCORE_5_ACHIEVEMENT_ID</string>
+    <string name="achievement_10_id">FIXME__GAMES_HIGHSCORE_10_ACHIEVEMENT_ID</string>
+    <string name="achievement_25_id">FIXME__GAMES_HIGHSCORE_25_ACHIEVEMENT_ID</string>
+    <string name="achievement_100_id">FIXME__GAMES_HIGHSCORE_100_ACHIEVEMENT_ID</string>
+    <string name="public_key">FIXME__IN_APP_BILLING_PUBLIC_KEY</string>
+    <string name="remove_ads_sku">remove_ads</string>
+
+    <string name="screenshot_path">screenshots/</string>
+
+    <string name="remove_ads_error_message">Sorry, but there was an error while paying to remove ads.</string>
+    <string name="remove_ads_success_message">Success! You won\'t see any more ads now.</string>
+    <string name="done">Done</string>
+    <string name="select_skin">Select Skin</string>
+    <string name="leaderboards">Leaderboards</string>
 </resources>

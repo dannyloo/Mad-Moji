@@ -1,6 +1,6 @@
 android {
     buildToolsVersion "23.0.2"
-    compileSdkVersion 23
+    compileSdkVersion 24
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -16,9 +16,10 @@ android {
     }
     defaultConfig {
         applicationId "com.gamestridestudios.ahhh_round"
-        minSdkVersion 17
-        targetSdkVersion 23
+        minSdkVersion 19
+        targetSdkVersion 24
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 // called every time gradle gets executed, takes the native dependencies of
@@ -63,7 +64,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.gamestridestudios.ahhh_round/com.gamestridestudios.ahhh_round.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.gamestridestudios.ahhh_round/com.gamestridestudios.ahhh_round.activities.GameActivity'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
@@ -120,5 +121,5 @@ idea {
 }
 dependencies {
     compile project(':BaseGameUtils')
-    compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.google.android.gms:play-services-ads:9.6.1'
 }
