@@ -22,12 +22,13 @@ import com.squareup.otto.Subscribe;
  * If the user has previously installed the app and integrated Google Play Games and they reinstall
  * the app, it will load their old scores.
  */
-public class GooglePlayGamesHelper {
+public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
     private Activity activity;
     private Bus bus;
     private GameActivityStore gameActivityStore;
     private CharacterSkinStore characterSkinStore;
     private GameHelper gameHelper;
+    private boolean showLeaderboardAfterSignIn;
 
     public GooglePlayGamesHelper(final Activity activity, Bus bus, final GameActivityStore gameActivityStore, CharacterSkinStore characterSkinStore) {
         this.activity = activity;
@@ -39,20 +40,24 @@ public class GooglePlayGamesHelper {
 
         gameHelper = new GameHelper(activity, GameHelper.CLIENT_GAMES);
         gameHelper.setConnectOnStart(!gameActivityStore.hasFailedGamesSignInOnce());
-        gameHelper.setup(new GameHelper.GameHelperListener() {
-            @Override
-            public void onSignInFailed() {
-                gameActivityStore.setHasFailedGamesSignInOnce(true);
-            }
+        gameHelper.setup(this);
+    }
 
-            @Override
-            public void onSignInSucceeded() {
-                gameActivityStore.setHasFailedGamesSignInOnce(false);
-                updateHighscoreBasedOnLeaderboard();
-                updateTotalJumpsBasedOnLeaderboard();
-                updateTotalPlaysBasedOnLeaderboard();
-            }
-        });
+    @Override
+    public void onSignInFailed() {
+        gameActivityStore.setHasFailedGamesSignInOnce(true);
+        showLeaderboardAfterSignIn = false;
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        gameActivityStore.setHasFailedGamesSignInOnce(false);
+        updateHighscoreBasedOnLeaderboard();
+        updateTotalJumpsBasedOnLeaderboard();
+        updateTotalPlaysBasedOnLeaderboard();
+        if (showLeaderboardAfterSignIn) {
+            showLeaderboard();
+        }
     }
 
     private void updateHighscoreBasedOnLeaderboard() {
@@ -121,6 +126,22 @@ public class GooglePlayGamesHelper {
                 }
             }
         });
+    }
+
+    public void attemptToShowLeaderboard() {
+        if (gameHelper.isSignedIn()) {
+            showLeaderboard();
+        } else {
+            showLeaderboardAfterSignIn = true;
+            gameHelper.reconnectClient();
+        }
+    }
+
+    private void showLeaderboard() {
+        if (gameHelper.isSignedIn()) {
+            activity.startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(gameHelper.getApiClient()), 0);
+        }
+        showLeaderboardAfterSignIn = false;
     }
 
     public void onStart() {

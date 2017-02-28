@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.gamestridestudios.ahhh_round.stores.CharacterSkinStore;
 import com.gamestridestudios.ahhh_round.stores.GameActivityStore;
+import com.squareup.otto.Bus;
+import com.squareup.otto.ThreadEnforcer;
 
 /**
  * This class is the application accessible from within Activities.
@@ -12,12 +14,14 @@ import com.gamestridestudios.ahhh_round.stores.GameActivityStore;
 public class MainApplication extends Application {
     private GameActivityStore gameActivityStore;
     private CharacterSkinStore characterSkinStore;
+    private Bus bus;
 
     @Override
     public void onCreate() {
         super.onCreate();
         gameActivityStore = new GameActivityStore();
         characterSkinStore = new CharacterSkinStore(gameActivityStore);
+        bus = new Bus(ThreadEnforcer.ANY);
     }
 
     public GameActivityStore getGameActivityStore() {
@@ -26,5 +30,9 @@ public class MainApplication extends Application {
 
     public CharacterSkinStore getCharacterSkinStore() {
         return characterSkinStore;
+    }
+
+    public Bus getBus() {
+        return bus;
     }
 }

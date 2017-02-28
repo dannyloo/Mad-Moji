@@ -68,6 +68,7 @@ public class AhhhRound extends ApplicationAdapter {
     private final int MIN_GAME_COUNT_BEFORE_AD_IS_DISPLAYED = 6;
     private final int MIN_TIME_BEFORE_AD_IS_DISPLAYED = 120;
     private final int JUMP_COUNT_BEFORE_CIRCLE_COLOR_CHANGE = 5;
+    private final double TIME_DELTA_TO_DETECT_PREMATURE_JUMPS = 0.03;
     private final double ENEMY_SPAWN_TIME = 1.3;
 
     private Stage stage;
@@ -92,6 +93,7 @@ public class AhhhRound extends ApplicationAdapter {
     private boolean removeAdsButtonVisible;
     private boolean takingScreenshot;
     private double timeSinceLastEnemySpawn;
+    private double timeSinceLastJumpAttempt;
     private double width;
     private double height;
     private double midX;
@@ -360,6 +362,7 @@ public class AhhhRound extends ApplicationAdapter {
             @Override
             public void run() {
                 if (gameState.isGameOver() && !isTransitioningToMenu) {
+                    skinsButton.endTextPulsate();
                     bus.post(new ShowSkinsActivityEvent());
                 }
             }
@@ -388,6 +391,12 @@ public class AhhhRound extends ApplicationAdapter {
             @Override
             public void run() {
                 if (gameState.isGameOver() && !isTransitioningToMenu) {
+                    rateButton.endTextPulsate();
+                    gameActivityStore.setHasRatedApp(true);
+                    characterSkinStore.checkForAnyNewUnlockedSkins(false);
+                    if (gameActivityStore.hasUnseenLockedCharacterSkins()) {
+                        skinsButton.beginTextPulsate();
+                    }
                     bus.post(new RateAppEvent());
                 }
             }
@@ -450,6 +459,8 @@ public class AhhhRound extends ApplicationAdapter {
             for (AhhhroundGameElement element : inGameElements) {
                 element.fadeIn(0.5);
             }
+            rateButton.endTextPulsate();
+            skinsButton.endTextPulsate();
             player.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                 @Override
                 public void run() {
@@ -523,6 +534,9 @@ public class AhhhRound extends ApplicationAdapter {
                 changeCenterCircleColor();
             }
             killJumpedEnemies();
+            if (timeSinceLastJumpAttempt < TIME_DELTA_TO_DETECT_PREMATURE_JUMPS) {
+                jump();
+            }
         }
     }
 
@@ -569,6 +583,7 @@ public class AhhhRound extends ApplicationAdapter {
 
     private void updateTimeSensitiveVariables() {
         timeSinceLastEnemySpawn += Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f);
+        timeSinceLastJumpAttempt += Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f);
     }
 
     private Character getFakeEnemyForScreenshot() {
@@ -633,6 +648,12 @@ public class AhhhRound extends ApplicationAdapter {
             @Override
             public void run() {
                 isTransitioningToMenu = false;
+                if (!gameActivityStore.hasRatedApp() && gameActivityStore.getTotalPlays() > PLAY_COUNT_BEFORE_RATE_PULSE) {
+                    rateButton.beginTextPulsate();
+                }
+                if (gameActivityStore.hasUnseenLockedCharacterSkins()) {
+                    skinsButton.beginTextPulsate();
+                }
             }
         })));
     }
@@ -662,6 +683,7 @@ public class AhhhRound extends ApplicationAdapter {
             if (!gameState.isPlaying() && !isTransitioningToSleeping) {
                 startPlaying();
             }
+            timeSinceLastJumpAttempt = 0;
             if (!player.isJumping()) {
                 player.jumpWithCallback(new Runnable() {
                     @Override

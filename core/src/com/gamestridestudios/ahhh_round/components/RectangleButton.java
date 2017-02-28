@@ -3,6 +3,7 @@ package com.gamestridestudios.ahhh_round.components;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,12 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.gamestridestudios.ahhh_round.utils.PixmapUtil;
 
 public class RectangleButton extends Group implements AhhhroundGameElement {
+    public static float PULSATING_MAGNIFICATION = 1.15f;
+
     private Image buttonBackground;
     private CenteredLabel buttonText;
     private InputListener clickListener;
+    private Action textPulsateAction;
 
     public RectangleButton(double width, double height, String text, final Style buttonStyle) {
         setBounds(0, 0, width, height);
+        setOrigin((float) width / 2, (float) height / 2);
 
         int higherQualityScalingConstant = 4;
         Pixmap buttonPixmap = PixmapUtil.getPixmapRoundedRectangle(width * higherQualityScalingConstant, height * higherQualityScalingConstant, buttonStyle.cornerRadius * 3);
@@ -39,6 +44,22 @@ public class RectangleButton extends Group implements AhhhroundGameElement {
                 buttonBackground.setColor(buttonStyle.buttonColor);
             }
         };
+    }
+
+    public void beginTextPulsate() {
+        textPulsateAction = Actions.forever(
+            Actions.sequence(
+                Actions.scaleTo(PULSATING_MAGNIFICATION, PULSATING_MAGNIFICATION, 0.3f),
+                Actions.scaleTo(1, 1, 0.3f),
+                Actions.delay(0.75f)
+            )
+        );
+        addAction(textPulsateAction);
+    }
+
+    public void endTextPulsate() {
+        removeAction(textPulsateAction);
+        setScale(1);
     }
 
     @Override

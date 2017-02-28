@@ -24,6 +24,7 @@ import com.gamestridestudios.ahhh_round.components.RoundedButton;
 import com.gamestridestudios.ahhh_round.components.SelectSkinListRow;
 import com.gamestridestudios.ahhh_round.components.TextView;
 import com.gamestridestudios.ahhh_round.stores.CharacterSkinStore;
+import com.gamestridestudios.ahhh_round.stores.GameActivityStore;
 import com.gamestridestudios.ahhh_round.utils.AssetSizeUtil;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class SelectSkinActivity extends Activity {
     private ListView skinListView;
     private List<CharacterSkin> skins;
     private CharacterSkinStore characterSkinStore;
+    private GameActivityStore gameActivityStore;
     private List<Drawable> skinDrawableCache = new ArrayList<>();
     private RoundedButton doneButton;
 
@@ -44,6 +46,8 @@ public class SelectSkinActivity extends Activity {
         View root = findViewById(android.R.id.content);
         root.setBackgroundColor(Color.OFF_WHITE.argb);
         characterSkinStore = ((MainApplication) getApplication()).getCharacterSkinStore();
+        gameActivityStore = ((MainApplication) getApplication()).getGameActivityStore();
+        gameActivityStore.setHasUnseenLockedCharacterSkins(false);
         setupCharacterSkins();
         setupHeader();
         setupButton();
@@ -93,9 +97,6 @@ public class SelectSkinActivity extends Activity {
             }
         });
         doneButton.measure(0, 0);
-        float scale = getResources().getDisplayMetrics().density;
-        int bottomPadding = (int) (doneButton.getMeasuredHeight() + scale * 16);
-        skinListView.setPadding(0, 0, 0, bottomPadding);
     }
 
     private class SkinListAdapter extends ArrayAdapter {
@@ -111,6 +112,15 @@ public class SelectSkinActivity extends Activity {
                 row = (SelectSkinListRow) LayoutInflater.from(SelectSkinActivity.this).inflate(R.layout.select_skin_list_row, parent, false);
             }
             row.setCharacterSkinAndImage(skins.get(position), skinDrawableCache.get(position), characterSkinStore);
+
+            if (position == getCount() - 1){
+                float scale = getResources().getDisplayMetrics().density;
+                int bottomPadding = (int) (doneButton.getMeasuredHeight() + scale * 16);
+                row.setPadding(0, 0, 0, bottomPadding);
+            } else {
+                row.setPadding(0, 0, 0, 0);
+            }
+
             return row;
         }
     }

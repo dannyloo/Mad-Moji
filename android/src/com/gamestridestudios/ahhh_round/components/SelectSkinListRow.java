@@ -2,6 +2,8 @@ package com.gamestridestudios.ahhh_round.components;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +12,10 @@ import com.gamestridestudios.ahhh_round.AhhhRound;
 import com.gamestridestudios.ahhh_round.R;
 import com.gamestridestudios.ahhh_round.stores.CharacterSkinStore;
 import com.gamestridestudios.ahhh_round.utils.AssetSizeUtil;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SelectSkinListRow extends LinearLayout {
     private CharacterSkinStore characterSkinStore;
@@ -59,10 +65,31 @@ public class SelectSkinListRow extends LinearLayout {
         });
         skinView.setImageDrawable(skinImage);
         skinView.setAdjustViewBounds(true);
-        skinView.setMaxWidth((int) (skinImage.getIntrinsicWidth() / 7.0));
-        skinView.setMaxHeight((int) (skinImage.getIntrinsicHeight() / 7.0));
-        predicateTextView.setText(characterSkin.unlockPredicateTextForm.get(0));
+        skinView.setMaxWidth((int) (skinImage.getIntrinsicWidth() / 6.0));
+        skinView.setMaxHeight((int) (skinImage.getIntrinsicHeight() / 6.0));
+        setPredicateText(characterSkin.unlockPredicateTextForm);
         updateSelectButton();
+    }
+
+    private void setPredicateText(List<String> predicateTextSegments) {
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> predicateIterator = predicateTextSegments.iterator();
+        List<Integer> predicateSeparatorPositions = new ArrayList<>();
+        int currentPositionInString = 0;
+        while (predicateIterator.hasNext()) {
+            String predicate = predicateIterator.next();
+            sb.append(predicate);
+            currentPositionInString += predicate.length();
+            if (predicateIterator.hasNext()) {
+                predicateSeparatorPositions.add(currentPositionInString + 1);
+                sb.append("\nOR\n");
+            }
+        }
+        SpannableString multiSizedString = new SpannableString(sb);
+        for (Integer predicateSeparatorPosition : predicateSeparatorPositions) {
+            multiSizedString.setSpan(new RelativeSizeSpan(0.66f), predicateSeparatorPosition, predicateSeparatorPosition + 2, 0);
+        }
+        predicateTextView.setText(multiSizedString);
     }
 
     private void updateSelectButton() {

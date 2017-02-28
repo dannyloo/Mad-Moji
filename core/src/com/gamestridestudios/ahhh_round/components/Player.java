@@ -63,7 +63,7 @@ public class Player extends Character {
         double additionalDistanceFromCenter = 0;
         if (currentlyJumping) {
             elapsedJumpTime += timeSinceLastUpdate;
-            additionalDistanceFromCenter = -4d * Math.pow(1 / jumpAirTime, 2) * jumpHeight * Math.pow((elapsedJumpTime - jumpAirTime) / 2.0, 2) + jumpHeight;
+            additionalDistanceFromCenter = -4.0 * Math.pow(1 / jumpAirTime, 2) * jumpHeight * Math.pow((elapsedJumpTime - jumpAirTime) / 2.0, 2) + jumpHeight;
             if (additionalDistanceFromCenter < 0) {
                 additionalDistanceFromCenter = 0;
                 elapsedJumpTime = 0;

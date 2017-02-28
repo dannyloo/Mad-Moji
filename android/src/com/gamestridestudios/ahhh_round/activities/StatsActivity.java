@@ -1,6 +1,7 @@
 package com.gamestridestudios.ahhh_round.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,12 +9,15 @@ import android.view.View;
 import com.gamestridestudios.ahhh_round.AhhhRound;
 import com.gamestridestudios.ahhh_round.MainApplication;
 import com.gamestridestudios.ahhh_round.R;
+import com.gamestridestudios.ahhh_round.activities.helpers.GooglePlayGamesHelper;
 import com.gamestridestudios.ahhh_round.components.Color;
 import com.gamestridestudios.ahhh_round.components.RoundedButton;
 import com.gamestridestudios.ahhh_round.components.TextView;
+import com.gamestridestudios.ahhh_round.stores.CharacterSkinStore;
 import com.gamestridestudios.ahhh_round.stores.GameActivityStore;
 import com.gamestridestudios.ahhh_round.utils.AssetSizeUtil;
 import com.gamestridestudios.ahhh_round.utils.ThousandsFormatter;
+import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +30,41 @@ public class StatsActivity extends Activity {
     private RoundedButton leaderboardsButton;
     private RoundedButton doneButton;
     private GameActivityStore gameActivityStore;
+    private CharacterSkinStore characterSkinStore;
+    private GooglePlayGamesHelper googlePlayGamesHelper;
+    private Bus bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gameActivityStore = ((MainApplication) getApplication()).getGameActivityStore();
+        characterSkinStore = ((MainApplication) getApplication()).getCharacterSkinStore();
+        bus = ((MainApplication) getApplication()).getBus();
+        googlePlayGamesHelper = new GooglePlayGamesHelper(this, bus, gameActivityStore, characterSkinStore);
         setContentView(R.layout.stats_activity);
         View root = findViewById(android.R.id.content);
         root.setBackgroundColor(Color.OFF_WHITE.argb);
         setupHeader();
         setupLabels();
         setupButtons();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        googlePlayGamesHelper.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        googlePlayGamesHelper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        googlePlayGamesHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     public void setupHeader() {
@@ -82,20 +110,9 @@ public class StatsActivity extends Activity {
         leaderboardsButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                finish();
+                googlePlayGamesHelper.attemptToShowLeaderboard();
                 return false;
             }
         });
-    }
-
-    public void showLeaderboard() {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (gameHelper.isSignedIn()) {
-//                    activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), activity.getResources().getString(R.string.leaderboard_id)), 0);
-//                }
-//            }
-//        });
     }
 }

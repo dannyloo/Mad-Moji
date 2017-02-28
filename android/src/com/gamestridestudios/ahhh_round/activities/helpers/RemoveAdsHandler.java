@@ -82,7 +82,10 @@ public class RemoveAdsHandler {
     }
 
     public boolean handleActivityResult(int request, int response, Intent data) {
-        return billingService.handleActivityResult(request, response, data);
+        if (billingService != null) {
+            return billingService.handleActivityResult(request, response, data);
+        }
+        return false;
     }
 
     private void connectToBilling() {

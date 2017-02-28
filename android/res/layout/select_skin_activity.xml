@@ -17,8 +17,6 @@
         <ListView
             android:id="@+id/skin_list_view"
             android:listSelector="@android:color/transparent"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <com.gamestridestudios.ahhh_round.components.RoundedButton

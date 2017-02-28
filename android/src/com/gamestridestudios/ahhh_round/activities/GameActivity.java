@@ -23,7 +23,6 @@ import com.gamestridestudios.ahhh_round.stores.CharacterSkinStore;
 import com.gamestridestudios.ahhh_round.stores.GameActivityStore;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-import com.squareup.otto.ThreadEnforcer;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -41,7 +40,7 @@ public class GameActivity extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		Fabric.with(this, new Crashlytics());
 
-        bus = new Bus(ThreadEnforcer.ANY);
+        bus = ((MainApplication) getApplication()).getBus();
         bus.register(this);
         gameActivityStore = ((MainApplication) getApplication()).getGameActivityStore();
         characterSkinStore = ((MainApplication) getApplication()).getCharacterSkinStore();
