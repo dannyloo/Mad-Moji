@@ -2,11 +2,11 @@
 <resources>
     <string name="app_name">Ahhh-round</string>
 
-    <string name="interstitial_ad_unit_id">FIXME__ADMOB_PUBLISHER_ID</string>
-    <string name="app_id">FIXME__GMS_GAMES_APP_ID</string>
-    <string name="highscore_leaderboard_id">FIXME__GAMES_HIGHSCORE_LEADERBOARD_ID</string>
-    <string name="total_jumps_leaderboard_id">FIXME__GAMES_TOTAL_JUMPS_LEADERBOARD_ID</string>
-    <string name="total_plays_leaderboard_id">FIXME__GAMES_TOTAL_PLAYS_LEADERBOARD_ID</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-1620907453021344/8974945318</string>
+    <string name="app_id">150709404011</string>
+    <string name="highscore_leaderboard_id">CgkI64Lst7EEEAIQAw</string>
+    <string name="total_jumps_leaderboard_id">CgkI64Lst7EEEAIQAQ</string>
+    <string name="total_plays_leaderboard_id">CgkI64Lst7EEEAIQAg</string>
     <string name="achievement_1_id">FIXME__GAMES_HIGHSCORE_1_ACHIEVEMENT_ID</string>
     <string name="achievement_5_id">FIXME__GAMES_HIGHSCORE_5_ACHIEVEMENT_ID</string>
     <string name="achievement_10_id">FIXME__GAMES_HIGHSCORE_10_ACHIEVEMENT_ID</string>

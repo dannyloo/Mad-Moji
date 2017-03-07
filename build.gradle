@@ -1,8 +1,10 @@
 buildscript {
     repositories {
+        mavenLocal()//Danny added this because of "Could not find com.android.tools.build:gradle:2.2.2. error"
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url 'https://maven.fabric.io/public' }
+        jcenter()//Danny added this because of "Could not find com.android.tools.build:gradle:2.2.2. error"
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
