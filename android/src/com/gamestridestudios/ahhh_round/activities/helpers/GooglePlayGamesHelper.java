@@ -43,10 +43,19 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
         gameHelper.setup(this);
     }
 
+
+    public void onStart() {
+        gameHelper.onStart(activity);
+        int tempScore = 0;
+
+    }
+
     @Override
     public void onSignInFailed() {
         gameActivityStore.setHasFailedGamesSignInOnce(true);
         showLeaderboardAfterSignIn = false;
+
+
     }
 
     @Override
@@ -64,7 +73,15 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
         Games.Leaderboards.loadCurrentPlayerLeaderboardScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.highscore_leaderboard_id), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
             @Override
             public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
-                int score = (int) loadPlayerScoreResult.getScore().getRawScore();
+                System.out.println("score is ");
+                int score = 0;
+                if(loadPlayerScoreResult.getScore() == null){
+                    //do nothing
+                }
+                else
+                    score = (int) loadPlayerScoreResult.getScore().getRawScore();
+
+                System.out.println("score1 is " + score);
                 if (score > gameActivityStore.getHighScore()) {
                     gameActivityStore.setHighScore(score);
                     characterSkinStore.checkForAnyNewUnlockedSkins(true);
@@ -77,7 +94,13 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
         Games.Leaderboards.loadCurrentPlayerLeaderboardScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_jumps_leaderboard_id), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
             @Override
             public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
-                int totalJumps = (int) loadPlayerScoreResult.getScore().getRawScore();
+                int totalJumps = 0;
+                if(loadPlayerScoreResult.getScore() == null){
+                    //do nothing
+                }
+                else
+                    totalJumps = (int) loadPlayerScoreResult.getScore().getRawScore();
+
                 if (totalJumps > gameActivityStore.getTotalJumps()) {
                     gameActivityStore.setTotalJumps(totalJumps);
                     characterSkinStore.checkForAnyNewUnlockedSkins(true);
@@ -90,7 +113,13 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
         Games.Leaderboards.loadCurrentPlayerLeaderboardScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_plays_leaderboard_id), LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
             @Override
             public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
-                int totalPlays = (int) loadPlayerScoreResult.getScore().getRawScore();
+                int totalPlays = 0;
+                if(loadPlayerScoreResult.getScore() == null){
+                    //do nothing
+                }
+                else
+                    totalPlays = (int) loadPlayerScoreResult.getScore().getRawScore();
+
                 if (totalPlays > gameActivityStore.getTotalPlays()) {
                     gameActivityStore.setTotalPlays(totalPlays);
                     characterSkinStore.checkForAnyNewUnlockedSkins(true);
@@ -144,9 +173,6 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
         showLeaderboardAfterSignIn = false;
     }
 
-    public void onStart() {
-        gameHelper.onStart(activity);
-    }
 
     public void onStop() {
         gameHelper.onStop();
