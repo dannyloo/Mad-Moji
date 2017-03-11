@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.gamestridestudios.ahhh_round.components.SelectSkinListRow xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qeue.ahhh_round.components.SelectSkinListRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,7 +11,7 @@
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.gamestridestudios.ahhh_round.components.TextView
+    <com.qeue.ahhh_round.components.TextView
         android:id="@+id/select_skin_text_view_predicate_text_view"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="14dp"
@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
-    <com.gamestridestudios.ahhh_round.components.RoundedButton
+    <com.qeue.ahhh_round.components.RoundedButton
         android:id="@+id/select_skin_text_view_select_button"
         android:layout_marginRight="12dp"
         android:clickable="false"
@@ -31,4 +31,4 @@
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-</com.gamestridestudios.ahhh_round.components.SelectSkinListRow>
+</com.qeue.ahhh_round.components.SelectSkinListRow>
