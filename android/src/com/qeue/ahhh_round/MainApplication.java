@@ -15,6 +15,11 @@ public class MainApplication extends Application {
     private Bus bus;
 
     @Override
+    public String getPackageName() {
+        return super.getPackageName();
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         gameActivityStore = new com.qeue.ahhh_round.stores.GameActivityStore();

@@ -3,13 +3,16 @@ package com.qeue.ahhh_round.activities.helpers;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
+import com.qeue.ahhh_round.MainApplication;
 import com.qeue.ahhh_round.events.ShowShareDialogEvent;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -19,7 +22,7 @@ import java.io.File;
 /**
  * This class handles sharing an image and text via a share intent.
  */
-public class ShareHelper {
+public class ShareHelper extends AndroidApplication{
     private Activity activity;
     private Bus bus;
     private boolean currentlySharing;
@@ -48,7 +51,8 @@ public class ShareHelper {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("image/png");
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "I just hopped over " + event.score + (event.score == 1 ? " enemy" : " enemies") + " in Ahhh-round. Bet you can’t beat me! FIXME__SHARE_URL");
+                    System.out.println("PACKAGE NAME "+getPackageName());//getPackageName() doesnt work so I just linked package name below
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "I just hopped over " + event.score + (event.score == 1 ? " enemy" : " enemies") + " in Ahhh-round. Bet you can’t beat me! http://play.google.com/store/apps/details?id=com.qeue.ahhh_round");
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     activity.startActivity(shareIntent);
                 }
