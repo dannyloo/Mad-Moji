@@ -2,6 +2,8 @@ package com.qeue.ahhh_round.activities.helpers;
 
 import android.app.Activity;
 
+import com.google.android.gms.ads.mediation.customevent.CustomEventBannerListener;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.qeue.ahhh_round.R;
 import com.qeue.ahhh_round.events.ShowAdEvent;
 import com.qeue.ahhh_round.events.SuccessfullyShowedAdEvent;
@@ -18,7 +20,6 @@ public class AdHelper {
     private Activity activity;
     private Bus bus;
     private InterstitialAd ad;
-
     public AdHelper(Activity activity, Bus bus) {
         this.activity = activity;
         this.bus = bus;

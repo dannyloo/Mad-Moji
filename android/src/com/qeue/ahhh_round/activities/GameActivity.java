@@ -106,6 +106,7 @@ public class GameActivity extends AndroidApplication {
             public void run() {
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                System.out.println("Package name is "+getPackageName());
                 goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 try {
                     startActivity(goToMarket);

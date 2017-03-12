@@ -7,11 +7,11 @@
     <string name="highscore_leaderboard_id">CgkI64Lst7EEEAIQAw</string>
     <string name="total_jumps_leaderboard_id">CgkI64Lst7EEEAIQAQ</string>
     <string name="total_plays_leaderboard_id">CgkI64Lst7EEEAIQAg</string>
-    <string name="achievement_1_id">FIXME__GAMES_HIGHSCORE_1_ACHIEVEMENT_ID</string>
-    <string name="achievement_5_id">FIXME__GAMES_HIGHSCORE_5_ACHIEVEMENT_ID</string>
-    <string name="achievement_10_id">FIXME__GAMES_HIGHSCORE_10_ACHIEVEMENT_ID</string>
-    <string name="achievement_25_id">FIXME__GAMES_HIGHSCORE_25_ACHIEVEMENT_ID</string>
-    <string name="achievement_100_id">FIXME__GAMES_HIGHSCORE_100_ACHIEVEMENT_ID</string>
+    <string name="achievement_1_id">CgkI64Lst7EEEAIQBA</string>
+    <string name="achievement_5_id">CgkI64Lst7EEEAIQBQ</string>
+    <string name="achievement_10_id">CgkI64Lst7EEEAIQBg</string>
+    <string name="achievement_25_id">CgkI64Lst7EEEAIQBw</string>
+    <string name="achievement_100_id">CgkI64Lst7EEEAIQCA </string>
     <string name="public_key">FIXME__IN_APP_BILLING_PUBLIC_KEY</string>
     <string name="remove_ads_sku">remove_ads</string>
 

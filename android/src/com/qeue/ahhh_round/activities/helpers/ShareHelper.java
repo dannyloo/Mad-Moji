@@ -59,7 +59,7 @@ public class ShareHelper {
     private Uri putScreenshotInFilesystem(Pixmap screenshot) {
         File imagePath = new File(activity.getFilesDir(), "screenshots");
         File newFile = new File(imagePath, "screenshot.png");
-        Uri uri = FileProvider.getUriForFile(activity, "com.gamestridestudios.ahhh_round.fileprovider", newFile);
+        Uri uri = FileProvider.getUriForFile(activity, "com.qeue.ahhh_round.fileprovider", newFile);
         FileHandle fileHandle = Gdx.files.getFileHandle(newFile.getAbsolutePath(), Files.FileType.Absolute);
         PixmapIO.writePNG(fileHandle, screenshot);
         screenshot.dispose();
