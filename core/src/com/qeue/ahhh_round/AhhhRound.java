@@ -114,6 +114,7 @@ public class AhhhRound extends ApplicationAdapter {
     private RectangleButton skinsButton;
     private RoundButton muteButton;
     private RoundButton removeAdsButton;
+    private RoundButton achievementButton;
     private RectangleButton shareButton;
     private RectangleButton rateButton;
     private Action spinPlayerAction;
@@ -229,6 +230,7 @@ public class AhhhRound extends ApplicationAdapter {
         assetManager.load("inGameLogo.png", Texture.class, rectangularTextureParameter);
 
         assetManager.load("noAds.png", Texture.class, squareTextureParameter);
+        assetManager.load("Achievements.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-off.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-up.png", Texture.class, squareTextureParameter);
 
@@ -309,6 +311,7 @@ public class AhhhRound extends ApplicationAdapter {
         inGameScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel("0", fontFactory.get(SCORE_FONT), Color.OFF_WHITE, height, midX, midY);
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
+
     }
 
     private void setupButtons() {
@@ -417,6 +420,10 @@ public class AhhhRound extends ApplicationAdapter {
         });
         updateRemoveAdsButton();
         stage.addActor(removeAdsButton);
+
+        achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
+        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
+        stage.addActor(achievementButton);
     }
 
     private void setupGroups() {
