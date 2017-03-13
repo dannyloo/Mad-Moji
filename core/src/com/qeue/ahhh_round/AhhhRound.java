@@ -320,9 +320,9 @@ public class AhhhRound extends ApplicationAdapter {
         RectangleButton.Style rectangleButtonStyle = new RectangleButton.Style(Color.OFF_BLACK, Color.OFF_WHITE, fontFactory.get(RECTANGLE_BUTTON_FONT));
         playAgainButtonStyle = new RectangleButton.Style(Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), Color.OFF_WHITE, fontFactory.get(RECTANGLE_BUTTON_FONT));
 
-        playAgainButton = new RectangleButton(largeButtonWidth, rectButtonHeight, "Play Again", playAgainButtonStyle);
+        playAgainButton = new RectangleButton(largeButtonWidth, rectButtonHeight*2, "Play Again", playAgainButtonStyle);
         playAgainButton.setVisibility(false);
-        playAgainButton.setPosition((width - largeButtonWidth) / 2, (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        playAgainButton.setPosition((width - largeButtonWidth) / 2, 4*(rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight)/2);
         playAgainButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -333,7 +333,7 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(playAgainButton);
 
-        statsButton = new RectangleButton(largeButtonWidth, rectButtonHeight, "Stats", rectangleButtonStyle);
+        statsButton = new RectangleButton(smallButtonWidth, rectButtonHeight, "Stats", rectangleButtonStyle);
         statsButton.setVisibility(false);
         statsButton.setPosition((width - largeButtonWidth) / 2, (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         statsButton.setClickListener(new Runnable() {
@@ -348,7 +348,7 @@ public class AhhhRound extends ApplicationAdapter {
 
         skinsButton = new RectangleButton(largeButtonWidth, rectButtonHeight, "Skins", rectangleButtonStyle);
         skinsButton.setVisibility(false);
-        skinsButton.setPosition((width - largeButtonWidth) / 2, 2 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        skinsButton.setPosition((width - largeButtonWidth) / 2, 3 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         skinsButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -362,7 +362,7 @@ public class AhhhRound extends ApplicationAdapter {
 
         shareButton = new RectangleButton(smallButtonWidth, rectButtonHeight, "Share", rectangleButtonStyle);
         shareButton.setVisibility(false);
-        shareButton.setPosition((width + buttonSpacing) / 2, 3 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        shareButton.setPosition((width + buttonSpacing) / 2, (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         shareButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -375,9 +375,9 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(shareButton);
 
-        rateButton = new RectangleButton(smallButtonWidth, rectButtonHeight, "Rate", rectangleButtonStyle);
+        rateButton = new RectangleButton(largeButtonWidth, rectButtonHeight, "Rate", rectangleButtonStyle);
         rateButton.setVisibility(false);
-        rateButton.setPosition((width - buttonSpacing) / 2 - smallButtonWidth, 3 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        rateButton.setPosition((width - buttonSpacing) / 2 - smallButtonWidth, 2 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         rateButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -396,7 +396,7 @@ public class AhhhRound extends ApplicationAdapter {
 
         boolean isMuted = gameActivityStore.isMuted();
         muteButton = new RoundButton(roundButtonRadius, isMuted ? assetManager.get("fa-volume-off.png", Texture.class) : assetManager.get("fa-volume-up.png", Texture.class), isMuted ? roundButtonRadius * 0.7 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0, Color.CLEAR, Color.OFF_BLACK);
-        muteButton.setPositionCenter(width - roundButtonRadius, roundButtonRadius);
+        muteButton.setPositionCenter(width - roundButtonRadius, height-roundButtonRadius);
         muteButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -406,7 +406,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(muteButton);
 
         removeAdsButton = new RoundButton(roundButtonRadius, assetManager.get("noAds.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
-        removeAdsButton.setPositionCenter(roundButtonRadius, roundButtonRadius);
+        removeAdsButton.setPositionCenter(roundButtonRadius, height-roundButtonRadius);
         removeAdsButton.setClickListener(new Runnable() {
             @Override
             public void run() {

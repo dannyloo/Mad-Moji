@@ -51,7 +51,7 @@ public class ShareHelper extends AndroidApplication{
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("image/png");
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                    System.out.println("PACKAGE NAME "+getPackageName());//getPackageName() doesnt work so I just linked package name below
+                    //System.out.println("PACKAGE NAME "+getPackageName());//getPackageName() doesnt work so I just linked package name below
                     shareIntent.putExtra(Intent.EXTRA_TEXT, "I just hopped over " + event.score + (event.score == 1 ? " enemy" : " enemies") + " in Ahhh-round. Bet you can’t beat me! http://play.google.com/store/apps/details?id=com.qeue.ahhh_round");
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     activity.startActivity(shareIntent);
