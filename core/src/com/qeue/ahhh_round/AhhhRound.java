@@ -312,9 +312,6 @@ public class AhhhRound extends ApplicationAdapter {
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
 
-        achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
-        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
-        stage.addActor(achievementButton);
 
     }
 
@@ -393,7 +390,7 @@ public class AhhhRound extends ApplicationAdapter {
                     gameActivityStore.setHasRatedApp(true);
                     characterSkinStore.checkForAnyNewUnlockedSkins(false);
                     if (gameActivityStore.hasUnseenLockedCharacterSkins()) {
-                        skinsButton.beginTextPulsate();
+                        rateButton.beginTextPulsate();
                     }
                     bus.post(new RateAppEvent());
                 }
@@ -424,6 +421,18 @@ public class AhhhRound extends ApplicationAdapter {
         });
         updateRemoveAdsButton();
         stage.addActor(removeAdsButton);
+
+        achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
+        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
+        achievementButton.setClickListener(new Runnable() {
+            @Override
+            public void run() {
+                if (gameState.isSleeping()) {
+                    bus.post(new ShowSkinsActivityEvent());
+                }
+            }
+        });
+        stage.addActor(achievementButton);
 
     }
 
