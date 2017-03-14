@@ -312,6 +312,10 @@ public class AhhhRound extends ApplicationAdapter {
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
 
+        achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
+        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
+        stage.addActor(achievementButton);
+
     }
 
     private void setupButtons() {
@@ -421,9 +425,6 @@ public class AhhhRound extends ApplicationAdapter {
         updateRemoveAdsButton();
         stage.addActor(removeAdsButton);
 
-        achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
-        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
-        stage.addActor(achievementButton);
     }
 
     private void setupGroups() {
@@ -438,6 +439,7 @@ public class AhhhRound extends ApplicationAdapter {
         menuElements.add(rateButton);
         inGameElements.add(inGameScoreLabel);
         inGameElements.add(tapToJumpLabel);
+        inGameElements.add(achievementButton);
     }
 
     private void setToSleeping() {
@@ -495,6 +497,8 @@ public class AhhhRound extends ApplicationAdapter {
         gameState = GameState.PLAYING;
         player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(characterSkinStore.getSelectedCharacterSkin().imageName, Texture.class))));
         timeSinceLastEnemySpawn = ENEMY_SPAWN_TIME;
+
+        achievementButton.fadeOut(0.5);
     }
 
     private void updateInGameScoreLabel() {
