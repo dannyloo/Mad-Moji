@@ -313,7 +313,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(gameOverHighScoreLabel);
         tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE TAP = ONE POINT", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*.80));
+        tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.80));
         stage.addActor(tapToStartLabel);
         inGameScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel("0", fontFactory.get(SCORE_FONT), Color.OFF_WHITE, height, midX, midY);
         updateInGameScoreLabel();
@@ -575,6 +575,7 @@ public class AhhhRound extends ApplicationAdapter {
         }
         centerCircle.addAction(Actions.color(Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), 1));
         playAgainButtonStyle.setButtonColor(Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]));
+
     }
 
     private void killJumpedEnemies() {
@@ -679,6 +680,8 @@ public class AhhhRound extends ApplicationAdapter {
                 }
             }
         })));
+
+        tapToStartLabel.setColor(Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]));
     }
 
     private void transformIntoKillerEnemy(com.qeue.ahhh_round.components.Character enemyThatKilledPlayer) {
