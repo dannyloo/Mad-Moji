@@ -108,6 +108,7 @@ public class AhhhRound extends ApplicationAdapter {
     private com.qeue.ahhh_round.components.CenteredLabel gameOverHighScoreLabel;
     private com.qeue.ahhh_round.components.CenteredLabel inGameScoreLabel;
     private com.qeue.ahhh_round.components.CenteredLabel tapToJumpLabel;
+    private com.qeue.ahhh_round.components.CenteredLabel tapToStartLabel;
     private RectangleButton.Style playAgainButtonStyle;
     private RectangleButton playAgainButton;
     private RectangleButton statsButton;
@@ -306,8 +307,10 @@ public class AhhhRound extends ApplicationAdapter {
         gameOverHighScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel(fontFactory.get(REGULAR_FONT), Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverHighScoreLabel.setVisibility(false);
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE POINT PER TAP", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY - centerCircleRadius) * 0.5);
+        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE POINT PER TAP", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
         stage.addActor(tapToJumpLabel);
+        tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP TO START",fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*.80));
+        stage.addActor(tapToStartLabel);
         inGameScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel("0", fontFactory.get(SCORE_FONT), Color.OFF_WHITE, height, midX, midY);
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
@@ -449,6 +452,7 @@ public class AhhhRound extends ApplicationAdapter {
         inGameElements.add(inGameScoreLabel);
         inGameElements.add(tapToJumpLabel);
         inGameElements.add(achievementButton);
+        inGameElements.add(tapToStartLabel);
     }
 
     private void setToSleeping() {
@@ -508,6 +512,7 @@ public class AhhhRound extends ApplicationAdapter {
         timeSinceLastEnemySpawn = ENEMY_SPAWN_TIME;
 
         achievementButton.fadeOut(0.5);
+        tapToStartLabel.fadeOut(0.5);
     }
 
     private void updateInGameScoreLabel() {
