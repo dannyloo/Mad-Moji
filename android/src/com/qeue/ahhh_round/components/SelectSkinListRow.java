@@ -69,6 +69,7 @@ public class SelectSkinListRow extends LinearLayout {
         skinView.setMaxHeight((int) (skinImage.getIntrinsicHeight() / 6.0));
         setPredicateText(characterSkin.unlockPredicateTextForm);
         updateSelectButton();
+
     }
 
     private void setPredicateText(List<String> predicateTextSegments) {

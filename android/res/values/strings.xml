@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ahhh-round</string>
 
-    <string name="interstitial_ad_unit_id">ca-app-pub-1620907453021344/8974945318</string>
+    <string name="interstitial_ad_unit_id">FIXME</string>
     <string name="app_id">150709404011</string>
     <string name="highscore_leaderboard_id">CgkI64Lst7EEEAIQAw</string>
     <string name="total_jumps_leaderboard_id">CgkI64Lst7EEEAIQAQ</string>

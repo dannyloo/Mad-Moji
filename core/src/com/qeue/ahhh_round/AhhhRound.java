@@ -169,8 +169,11 @@ public class AhhhRound extends ApplicationAdapter {
             finishedLoadingAssets();
         }
 
+
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
         stage.draw();
+
+
     }
 
     private void setupConstants() {
@@ -288,6 +291,7 @@ public class AhhhRound extends ApplicationAdapter {
             player.setPosition(midX - playerRadius, midY - centerCircleRadius - playerRadius * 2);
         }
         stage.addActor(player);
+
     }
 
     private void setupLabels() {
@@ -307,9 +311,9 @@ public class AhhhRound extends ApplicationAdapter {
         gameOverHighScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel(fontFactory.get(REGULAR_FONT), Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverHighScoreLabel.setVisibility(false);
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE POINT PER TAP", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
+        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE TAP = ONE POINT", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP TO START",fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*.80));
+        tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*.80));
         stage.addActor(tapToStartLabel);
         inGameScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel("0", fontFactory.get(SCORE_FONT), Color.OFF_WHITE, height, midX, midY);
         updateInGameScoreLabel();
@@ -349,6 +353,7 @@ public class AhhhRound extends ApplicationAdapter {
                 if (gameState.isGameOver() && !isTransitioningToMenu) {
                     bus.post(new ShowStatsActivityEvent());
                 }
+
             }
         });
         stage.addActor(statsButton);
@@ -437,6 +442,7 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(achievementButton);
 
+
     }
 
     private void setupGroups() {
@@ -453,6 +459,7 @@ public class AhhhRound extends ApplicationAdapter {
         inGameElements.add(tapToJumpLabel);
         inGameElements.add(achievementButton);
         inGameElements.add(tapToStartLabel);
+
     }
 
     private void setToSleeping() {

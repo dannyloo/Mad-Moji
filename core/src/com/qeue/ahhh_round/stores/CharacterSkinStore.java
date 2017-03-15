@@ -118,14 +118,14 @@ public class CharacterSkinStore {
                         return gameActivityStore.getHighScore() >= 200 || gameActivityStore.getTotalJumps() >= 25000;
                     }
                 }));
-        skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player8.png",
-                new String[]{"Rate the app"},
-                new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
-                    @Override
-                    public boolean run() {
-                        return gameActivityStore.hasRatedApp();
-                    }
-                }));
+//        skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player8.png",
+//                new String[]{"Rate the app"},
+//                new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
+//                    @Override
+//                    public boolean run() {
+//                        return gameActivityStore.hasRatedApp();
+//                    }
+//                }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player9.png",
                 new String[]{textPredicate(PredicateType.PLAYS, 1000)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
