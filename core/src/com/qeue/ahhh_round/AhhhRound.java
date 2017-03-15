@@ -311,7 +311,7 @@ public class AhhhRound extends ApplicationAdapter {
         gameOverHighScoreLabel = new com.qeue.ahhh_round.components.CenteredLabel(fontFactory.get(REGULAR_FONT), Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverHighScoreLabel.setVisibility(false);
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("ONE TAP = ONE POINT", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
+        tapToJumpLabel = new com.qeue.ahhh_round.components.CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), Color.OFF_BLACK, height, midX, (midY*2*0.20));
         stage.addActor(tapToJumpLabel);
         tapToStartLabel = new com.qeue.ahhh_round.components.CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.80));
         stage.addActor(tapToStartLabel);
