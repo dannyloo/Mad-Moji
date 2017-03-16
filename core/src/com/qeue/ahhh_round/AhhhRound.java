@@ -418,21 +418,21 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(muteButton);
 
-        removeAdsButton = new RoundButton(roundButtonRadius, assetManager.get("noAds.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
-        removeAdsButton.setPositionCenter(roundButtonRadius, height-roundButtonRadius);
-        removeAdsButton.setClickListener(new Runnable() {
-            @Override
-            public void run() {
-                if (!gameActivityStore.hasPaidToRemoveAds() && removeAdsButtonVisible) {
-                    bus.post(new com.qeue.ahhh_round.events.PurchaseAdRemovalEvent());
-                }
-            }
-        });
-        updateRemoveAdsButton();
-        stage.addActor(removeAdsButton);
+//        removeAdsButton = new RoundButton(roundButtonRadius, assetManager.get("noAds.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
+//        removeAdsButton.setPositionCenter(roundButtonRadius, height-roundButtonRadius);
+//        removeAdsButton.setClickListener(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (!gameActivityStore.hasPaidToRemoveAds() && removeAdsButtonVisible) {
+//                    bus.post(new com.qeue.ahhh_round.events.PurchaseAdRemovalEvent());
+//                }
+//            }
+//        });
+//        updateRemoveAdsButton();
+//        stage.addActor(removeAdsButton);
 
         achievementButton = new RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, Color.CLEAR, Color.OFF_BLACK);
-        achievementButton.setPositionCenter(roundButtonRadius*2.1, height - roundButtonRadius);
+        achievementButton.setPositionCenter(roundButtonRadius, height - roundButtonRadius);
         achievementButton.setClickListener(new Runnable() {
             @Override
             public void run() {

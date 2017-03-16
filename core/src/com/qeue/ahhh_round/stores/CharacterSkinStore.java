@@ -74,58 +74,53 @@ public class CharacterSkinStore {
         firstSkin.setUnlocked(true);
         skinList.add(firstSkin);
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player5.png",
-               new String[]{textPredicate(PredicateType.SCORE, 10),
-                            textPredicate(PredicateType.JUMPS, 500)},
+               new String[]{textPredicate(PredicateType.SCORE, 10)},
                new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                    @Override
                    public boolean run() {
-                       return gameActivityStore.getHighScore() >= 10 || gameActivityStore.getTotalJumps() >= 500;
+                       return gameActivityStore.getHighScore() >= 10;
                    }
                }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player4.png",
-                new String[]{textPredicate(PredicateType.SCORE, 25),
-                             textPredicate(PredicateType.JUMPS, 2500)},
+                new String[]{textPredicate(PredicateType.SCORE, 25)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                     @Override
                     public boolean run() {
-                        return gameActivityStore.getHighScore() >= 25 || gameActivityStore.getTotalJumps() >= 2500;
+                        return gameActivityStore.getHighScore() >= 25;
                     }
                 }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player7.png",
-                new String[]{textPredicate(PredicateType.SCORE, 50),
-                             textPredicate(PredicateType.JUMPS, 5000)},
+                new String[]{textPredicate(PredicateType.SCORE, 50)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                     @Override
                     public boolean run() {
-                        return gameActivityStore.getHighScore() >= 50 || gameActivityStore.getTotalJumps() >= 5000;
+                        return gameActivityStore.getHighScore() >= 50;
                     }
                 }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player10.png",
-                new String[]{textPredicate(PredicateType.SCORE, 100),
-                             textPredicate(PredicateType.JUMPS, 15000)},
+                new String[]{textPredicate(PredicateType.JUMPS, 1000)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                     @Override
                     public boolean run() {
-                        return gameActivityStore.getHighScore() >= 100 || gameActivityStore.getTotalJumps() >= 15000;
+                        return gameActivityStore.getTotalJumps() >= 1000;
                     }
                 }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player6.png",
-                new String[]{textPredicate(PredicateType.SCORE, 200),
-                             textPredicate(PredicateType.JUMPS, 25000)},
+                new String[]{textPredicate(PredicateType.JUMPS, 2500)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                     @Override
                     public boolean run() {
-                        return gameActivityStore.getHighScore() >= 200 || gameActivityStore.getTotalJumps() >= 25000;
+                        return gameActivityStore.getTotalJumps() >= 2500;
                     }
                 }));
-//        skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player8.png",
-//                new String[]{"Rate the app"},
-//                new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
-//                    @Override
-//                    public boolean run() {
-//                        return gameActivityStore.hasRatedApp();
-//                    }
-//                }));
+        skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player8.png",
+                new String[]{textPredicate(PredicateType.JUMPS, 5000)},
+                new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
+                    @Override
+                    public boolean run() {
+                        return gameActivityStore.getTotalJumps() >= 5000;
+                    }
+                }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player9.png",
                 new String[]{textPredicate(PredicateType.PLAYS, 1000)},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
@@ -135,11 +130,11 @@ public class CharacterSkinStore {
                     }
                 }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player2.png",
-                new String[]{textPredicate(PredicateType.JUMPS, 31415)},
+                new String[]{"Play 2 days in a row"},
                 new com.qeue.ahhh_round.components.CharacterSkin.UnlockPredicate() {
                     @Override
                     public boolean run() {
-                        return gameActivityStore.getTotalJumps() >= 31415;
+                        return gameActivityStore.getDaysPlayedInARow() >= 2;
                     }
                 }));
         skinList.add(new com.qeue.ahhh_round.components.CharacterSkin("player3.png",
