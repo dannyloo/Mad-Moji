@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.qeue.ahhh_round.components.BannerAdInterface;
 import com.qeue.ahhh_round.components.CircleSprite;
 import com.qeue.ahhh_round.components.Color;
 import com.qeue.ahhh_round.components.GameState;
@@ -109,6 +110,8 @@ public class AhhhRound extends ApplicationAdapter {
     private com.qeue.ahhh_round.components.CenteredLabel inGameScoreLabel;
     private com.qeue.ahhh_round.components.CenteredLabel tapToJumpLabel;
     private com.qeue.ahhh_round.components.CenteredLabel tapToStartLabel;
+    private BannerAdInterface bannerAdController;
+
     private RectangleButton.Style playAgainButtonStyle;
     private RectangleButton playAgainButton;
     private RectangleButton statsButton;
@@ -121,12 +124,22 @@ public class AhhhRound extends ApplicationAdapter {
     private Action spinPlayerAction;
     private Action movePlayerToCenterAction;
 
-    public AhhhRound(Bus bus, com.qeue.ahhh_round.stores.GameActivityStore gameActivityStore, com.qeue.ahhh_round.stores.CharacterSkinStore characterSkinStore) {
+    private float bannerAdHeight;
+
+    public AhhhRound(Bus bus, com.qeue.ahhh_round.stores.GameActivityStore gameActivityStore, com.qeue.ahhh_round.stores.CharacterSkinStore characterSkinStore,
+                     BannerAdInterface bannerAdController) {
         this.bus = bus;
         bus.register(this);
         this.gameActivityStore = gameActivityStore;
         this.characterSkinStore = characterSkinStore;
         scoreUpdater = new ScoreUpdater(bus, gameActivityStore, characterSkinStore);
+
+        if(bannerAdController != null) {
+            this.bannerAdController = bannerAdController;
+        }else {
+            //do nothing
+        }
+        bannerAdHeight = bannerAdController.getAdHeight();
     }
 
     public static Preferences getPrefs() {
@@ -148,6 +161,7 @@ public class AhhhRound extends ApplicationAdapter {
         setupConstants();
         loadSplashScreen();
         loadAssets();
+        startAds();
     }
 
     @Override
@@ -749,6 +763,12 @@ public class AhhhRound extends ApplicationAdapter {
     public void updateRemoveAdsButton() {
         if (removeAdsButton != null) {
             removeAdsButton.setVisibility(!gameActivityStore.hasPaidToRemoveAds() && removeAdsButtonVisible);
+        }
+    }
+
+    public void startAds(){
+        if(bannerAdController.isWifiConnected() || bannerAdController.isDataConnected()) {
+            bannerAdController.showBannerAd();
         }
     }
 }

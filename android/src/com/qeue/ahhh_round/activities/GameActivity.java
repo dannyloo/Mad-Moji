@@ -1,21 +1,31 @@
 package com.qeue.ahhh_round.activities;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.qeue.ahhh_round.AhhhRound;
 import com.qeue.ahhh_round.MainApplication;
 import com.qeue.ahhh_round.activities.helpers.AdHelper;
 import com.qeue.ahhh_round.activities.helpers.GooglePlayGamesHelper;
 import com.qeue.ahhh_round.activities.helpers.RemoveAdsHandler;
 import com.qeue.ahhh_round.activities.helpers.ShareHelper;
+import com.qeue.ahhh_round.components.BannerAdInterface;
 import com.qeue.ahhh_round.events.RateAppEvent;
 import com.qeue.ahhh_round.events.ShowSkinsActivityEvent;
 import com.qeue.ahhh_round.events.ShowStatsActivityEvent;
@@ -25,7 +35,7 @@ import com.squareup.otto.Subscribe;
 
 import io.fabric.sdk.android.Fabric;
 
-public class GameActivity extends AndroidApplication {
+public class GameActivity extends AndroidApplication implements BannerAdInterface{
     private Bus bus;
     private RemoveAdsHandler removeAdsHandler;
     private AdHelper adHelper;
@@ -33,6 +43,11 @@ public class GameActivity extends AndroidApplication {
     private com.qeue.ahhh_round.stores.GameActivityStore gameActivityStore;
     private CharacterSkinStore characterSkinStore;
     private ShareHelper shareHelper;
+    //This is the key for out ad that we are using (we only have one right now so we only need one key here
+    // This is bottle flips key, change it later
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-1620907453021344/7731284513";
+    //The banner that will be getting displayed
+    AdView bannerAd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +61,30 @@ public class GameActivity extends AndroidApplication {
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.numSamples = 2;
-        initialize(new AhhhRound(bus, gameActivityStore, characterSkinStore), config);
+        initialize(new AhhhRound(bus, gameActivityStore, characterSkinStore, this), config);
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
         removeAdsHandler = new RemoveAdsHandler(this, bus, gameActivityStore);
         adHelper = new AdHelper(this, bus);
         googlePlayGamesHelper = new GooglePlayGamesHelper(this, bus, gameActivityStore, characterSkinStore);
         shareHelper = new ShareHelper(this, bus);
+
+        setupAds();
+        config = new AndroidApplicationConfiguration();
+        View gameView = initializeForView(new AhhhRound(bus, gameActivityStore, characterSkinStore, this), config);
+        //Setting up the layouts for the ad and the game
+        RelativeLayout mLayout = new RelativeLayout(this);
+        mLayout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mLayout.addView(bannerAd, params);
+
+        setContentView(mLayout);
 	}
 
     @Override
@@ -116,5 +148,59 @@ public class GameActivity extends AndroidApplication {
                 }
             }
         });
+    }
+
+    @Override
+    public void showBannerAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                bannerAd.setVisibility(View.VISIBLE);
+                AdRequest.Builder builder = new AdRequest.Builder();
+                AdRequest ad = builder.build();
+                bannerAd.loadAd(ad);
+            }
+        });
+    }
+
+    @Override
+    public float getAdHeight() {
+        return AdSize.SMART_BANNER.getHeight();
+    }
+
+    @Override
+    public void hideBannerAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                bannerAd.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    @Override
+    public boolean isWifiConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        return (ni != null && ni.isConnected());
+    }
+
+    @Override
+    public boolean isDataConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (ni != null && ni.isConnected());
+    }
+
+    //This method simply initialized (sets up) the banner ad declared above
+    public void setupAds(){
+        bannerAd = new AdView(this);
+        bannerAd.setVisibility(View.INVISIBLE);
+        bannerAd.setBackgroundColor(0xff000000); // black
+        bannerAd.setAdUnitId(BANNER_AD_UNIT_ID);
+        bannerAd.setAdSize(AdSize.SMART_BANNER);
+
     }
 }
