@@ -186,7 +186,8 @@ public class AhhhRound extends ApplicationAdapter {
         jumpHeight = playerRadius * 2.2;
         centerCircleRadius = playerRadius * 8.375;
         centerCircleCenter = new Point(midX, midY);
-        roundButtonRadius = com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(14);
+        roundButtonRadius = height/39;
+
         if (TAKING_SCREENSHOT_NUMBER == 1) {
             currentCircleColorIndex = 1;
         } else if (TAKING_SCREENSHOT_NUMBER == 2) {
@@ -212,9 +213,9 @@ public class AhhhRound extends ApplicationAdapter {
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assetManager.setLoader(BitmapFont.class, null, new FreetypeFontLoader(resolver));
 
-        fontFactory.loadFont(REGULAR_FONT, DEFAULT_FONT_NAME, com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(18));
-        fontFactory.loadFont(TAP_TO_JUMP_FONT, DEFAULT_FONT_NAME, com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(18 * 0.9));
-        fontFactory.loadFont(RECTANGLE_BUTTON_FONT, DEFAULT_FONT_NAME, com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(14));
+        fontFactory.loadFont(REGULAR_FONT, DEFAULT_FONT_NAME, height/30);
+        fontFactory.loadFont(TAP_TO_JUMP_FONT, DEFAULT_FONT_NAME, height/34);
+        fontFactory.loadFont(RECTANGLE_BUTTON_FONT, DEFAULT_FONT_NAME, height/39);
         fontFactory.loadFont(SCORE_FONT, DEFAULT_FONT_NAME, com.qeue.ahhh_round.utils.AssetSizeUtil.getHeightIndifferentConstant() * 3.75);
 
         TextureLoader.TextureParameter squareTextureParameter = new TextureLoader.TextureParameter();
@@ -295,8 +296,8 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void setupLabels() {
-        double labelSpacing = com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(18) * 0.7;
-        double lineHeight = com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(18) * 0.825;
+        double labelSpacing = height/43;
+        double lineHeight = height/37;
         logo = new Image(assetManager.get("inGameLogo.png", Texture.class));
         logo.setBounds(0, 0, lineHeight * 1.35 * (logo.getWidth() / logo.getHeight()), lineHeight * 1.35);
         logo.setPosition((width - logo.getWidth()) / 2, height - lineHeight * 0.75 - logo.getHeight() / 2 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
@@ -323,7 +324,7 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void setupButtons() {
-        double rectButtonHeight = com.qeue.ahhh_round.utils.AssetSizeUtil.inGameFontSize(24);
+        double rectButtonHeight = height/23;
         double buttonSpacing = rectButtonHeight * 0.35;
         double smallButtonWidth = rectButtonHeight * 2.5;
         double largeButtonWidth = smallButtonWidth * 2 + buttonSpacing;
