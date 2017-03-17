@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "243926995275",
+    "firebase_url": "https://bottle-flip-2k16.firebaseio.com",
+    "project_id": "bottle-flip-2k16",
+    "storage_bucket": "bottle-flip-2k16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243926995275:android:59d9581ea9e5adaf",
+        "android_client_info": {
+          "package_name": "com.bottleflip2k16"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243926995275-fnoju74e1q0mupuh853ho1h0h3ure9ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVId3zksSxYVeWumx3heekDWviYqsVsUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243926995275:android:e171547b1bddf08a",
+        "android_client_info": {
+          "package_name": "com.qeue.madmoji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243926995275-fnoju74e1q0mupuh853ho1h0h3ure9ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVId3zksSxYVeWumx3heekDWviYqsVsUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
