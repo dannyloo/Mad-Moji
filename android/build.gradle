@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.qeue.ahhh_round"
+        applicationId "com.qeue.madmoji"
         minSdkVersion 19
         targetSdkVersion 24
     }
@@ -64,7 +64,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.qeue.ahhh_round/GameActivity'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.qeue.madmoji/GameActivity'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

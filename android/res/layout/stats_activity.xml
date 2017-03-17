@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_header"
         android:text="Stats"
         android:layout_marginTop="8dp"
@@ -10,14 +10,14 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_high_score_label"
         android:text="High Score"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_high_score_value"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -26,14 +26,21 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_total_plays_label"
         android:text="Total Plays"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
+        android:id="@+id/stats_activity_total_days_label"
+        android:text="Total Days Plays"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_total_plays_value"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -42,14 +49,14 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_total_jumps_label"
         android:text="Total Jumps"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.TextView
+    <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_total_jumps_value"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -58,14 +65,14 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.RoundedButton
+    <com.qeue.madmoji.components.RoundedButton
         android:id="@+id/stats_activity_leaderboards_button"
         android:text="@string/leaderboards"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.qeue.ahhh_round.components.RoundedButton
+    <com.qeue.madmoji.components.RoundedButton
         android:id="@+id/stats_activity_done_button"
         android:text="@string/done"
         android:layout_marginBottom="8dp"
