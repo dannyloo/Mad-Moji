@@ -135,7 +135,7 @@ public class AhhhRound extends ApplicationAdapter {
 
     public static Preferences getPrefs() {
         if (preferences == null) {
-            preferences = Gdx.app.getPreferences("Ahhh-round");
+            preferences = Gdx.app.getPreferences("Mad Moji");
         }
         return preferences;
     }
@@ -304,7 +304,9 @@ public class AhhhRound extends ApplicationAdapter {
         double labelSpacing = height/43;
         double lineHeight = height/37;
         logo = new com.qeue.madmoji.components.Image(assetManager.get("inGameLogo.png", Texture.class));
-        logo.setBounds(0, 0, lineHeight * 1.35 * (logo.getWidth() / logo.getHeight()), lineHeight * 1.35);
+        //old code logo.setBounds(0, 0, lineHeight * 1.35 * (logo.getWidth() / logo.getHeight()), lineHeight * 1.35);
+        logo.setBounds(0, 0, lineHeight * 2.00 * (logo.getWidth() / logo.getHeight()), lineHeight * 2.00);
+
         logo.setPosition((width - logo.getWidth()) / 2, height - lineHeight * 0.75 - logo.getHeight() / 2 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         logo.setVisibility(false);
         stage.addActor(logo);

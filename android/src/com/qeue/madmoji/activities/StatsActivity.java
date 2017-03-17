@@ -26,7 +26,7 @@ public class StatsActivity extends Activity {
     private TextView highScoreValueTextView;
     private TextView totalPlaysValueTextView;
     private TextView totalJumpsValueTextView;
-    private TextView totalDaysPlayed;
+    private TextView totalDaysPlayedTextView;
     private RoundedButton leaderboardsButton;
     private RoundedButton doneButton;
     private GameActivityStore gameActivityStore;
@@ -79,8 +79,8 @@ public class StatsActivity extends Activity {
         textViews.add(totalPlaysValueTextView);
         totalJumpsValueTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_value);
         textViews.add(totalJumpsValueTextView);
-        totalDaysPlayed = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_label);
-        textViews.add(totalDaysPlayed);
+        totalDaysPlayedTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_label);
+        textViews.add(totalDaysPlayedTextView);
 
         textViews.add((TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_high_score_label));
         textViews.add((TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_label));
@@ -100,8 +100,8 @@ public class StatsActivity extends Activity {
         totalJumpsValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(18));
         totalJumpsValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getTotalJumps()));
 
-        //totalDaysPlayed.setTextSize(AssetSizeUtil.outOfGameFontSize(18));
-        //totalDaysPlayed.setText(ThousandsFormatter.format(gameActivityStore.getDaysPlayedInARow()));
+        totalDaysPlayedTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(18));
+        totalDaysPlayedTextView.setText(ThousandsFormatter.format(gameActivityStore.getDaysPlayedInARow()));
     }
 
     public void setupButtons() {
