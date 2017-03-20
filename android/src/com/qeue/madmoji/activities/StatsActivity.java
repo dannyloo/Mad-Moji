@@ -79,7 +79,7 @@ public class StatsActivity extends Activity {
         textViews.add(totalPlaysValueTextView);
         totalJumpsValueTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_value);
         textViews.add(totalJumpsValueTextView);
-        totalDaysPlayedTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_label);
+        totalDaysPlayedTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_value);
         textViews.add(totalDaysPlayedTextView);
 
         textViews.add((TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_high_score_label));
