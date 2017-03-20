@@ -326,7 +326,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(gameOverHighScoreLabel);
         tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY*2*0.25));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new CenteredLabel("TAP ANYWHERE!",fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
+        tapToStartLabel = new CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
         stage.addActor(tapToStartLabel);
         inGameScoreLabel = new CenteredLabel("0", fontFactory.get(SCORE_FONT), com.qeue.madmoji.components.Color.OFF_WHITE, height, midX, midY+0.03*height); //didnt use offsetheight because of math
         updateInGameScoreLabel();
@@ -553,7 +553,10 @@ public class AhhhRound extends ApplicationAdapter {
 
     private void spawnEnemy() {
         double minAngle = player.getCurrentAngleFromCenter() + Math.PI / 2 + Math.PI / 4;
-        double selectedAngle = (minAngle * 1000 + Math.random() * Math.PI * 500.0) / 1000.0;
+        double selectedAngle = ((minAngle * 1000 + Math.random() * Math.PI * 500.0) / 1000.0)+0.000000000001;
+        //full 360 degree rotation is selectedAngle = 6.3 wtf
+        System.out.println("getcurrentangle is "+ player.getCurrentAngleFromCenter());
+        System.out.println("selectAngle is "+ selectedAngle);
         Character enemy = new Character(playerRadius * 2, playerRadius, selectedAngle, 0.5, assetManager.get("enemy.png", Texture.class));
         enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
         stage.addActor(enemy);
