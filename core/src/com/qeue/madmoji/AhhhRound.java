@@ -116,6 +116,8 @@ public class AhhhRound extends ApplicationAdapter {
     private Action movePlayerToCenterAction;
 
     private float bannerAdHeight;
+    private double offSetHeight; //height offset to make it .56y
+    private double offSetLabelHeight;
 
     public AhhhRound(Bus bus, GameActivityStore gameActivityStore, CharacterSkinStore characterSkinStore,
                      com.qeue.madmoji.components.BannerAdInterface bannerAdController) {
@@ -190,8 +192,11 @@ public class AhhhRound extends ApplicationAdapter {
         playerRadius = AssetSizeUtil.getHeightIndifferentConstant();
         jumpHeight = playerRadius * 2.2;
         centerCircleRadius = playerRadius * 8.375;
-        centerCircleCenter = new com.qeue.madmoji.components.Point(midX, midY);
+        offSetHeight = 0.56*height;
+        offSetLabelHeight = midY - 0.06*height;
+        centerCircleCenter = new com.qeue.madmoji.components.Point(midX, offSetHeight );
         roundButtonRadius = height/39;
+
 
         if (TAKING_SCREENSHOT_NUMBER == 1) {
             currentCircleColorIndex = 1;
@@ -280,7 +285,7 @@ public class AhhhRound extends ApplicationAdapter {
     private void setupCenterCircle() {
         centerCircle = new com.qeue.madmoji.components.CircleSprite(centerCircleRadius, new com.qeue.madmoji.components.Color(CENTER_CIRCLE_COLORS[currentCircleColorIndex]));
         centerCircle.setOrigin((float) centerCircleRadius, (float) centerCircleRadius);
-        centerCircle.setPosition(midX - centerCircleRadius , midY - centerCircleRadius);
+        centerCircle.setPosition(midX - centerCircleRadius , offSetHeight - centerCircleRadius);
         stage.addActor(centerCircle);
     }
 
@@ -291,7 +296,7 @@ public class AhhhRound extends ApplicationAdapter {
             player.setPosition(midX - playerRadius, midY + centerCircleRadius);
         } else if (TAKING_SCREENSHOT_NUMBER == 2) {
             player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(characterSkinStore.getSelectedCharacterSkin().imageName, Texture.class))));
-            player.setPosition(midX - playerRadius, midY - playerRadius);
+            player.setPosition(midX - playerRadius, offSetHeight - playerRadius);
         } else {
             player.setRotation(180);
             player.setPosition(midX - playerRadius, midY - centerCircleRadius - playerRadius * 2);
@@ -305,25 +310,25 @@ public class AhhhRound extends ApplicationAdapter {
         double lineHeight = height/37;
         logo = new com.qeue.madmoji.components.Image(assetManager.get("inGameLogo.png", Texture.class));
         //old code logo.setBounds(0, 0, lineHeight * 1.35 * (logo.getWidth() / logo.getHeight()), lineHeight * 1.35);
-        logo.setBounds(0, 0, lineHeight * 2.00 * (logo.getWidth() / logo.getHeight()), lineHeight * 2.00);
+        logo.setBounds(0, 0, lineHeight * 2.50 * (logo.getWidth() / logo.getHeight()), lineHeight * 2.50);
 
-        logo.setPosition((width - logo.getWidth()) / 2, height - lineHeight * 0.75 - logo.getHeight() / 2 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
+        logo.setPosition((width - logo.getWidth()) / 2, height - lineHeight * 0.75 - logo.getHeight() / 2 - ((midY - 0.06*height) - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
         logo.setVisibility(false);
         stage.addActor(logo);
-        gameOverLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 2 * lineHeight - labelSpacing - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
+        gameOverLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 2 * lineHeight - labelSpacing - (offSetLabelHeight - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverLabel.setVisibility(false);
         stage.addActor(gameOverLabel);
-        gameOverScoreLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 3 * lineHeight - labelSpacing * 2 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
+        gameOverScoreLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 3 * lineHeight - labelSpacing * 2 - (offSetLabelHeight - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverScoreLabel.setVisibility(false);
         stage.addActor(gameOverScoreLabel);
-        gameOverHighScoreLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (midY - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
+        gameOverHighScoreLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (offSetLabelHeight - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverHighScoreLabel.setVisibility(false);
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY*2*0.20));
+        tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY*2*0.25));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.80));
+        tapToStartLabel = new CenteredLabel("TAP ANYWHERE!",fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
         stage.addActor(tapToStartLabel);
-        inGameScoreLabel = new CenteredLabel("0", fontFactory.get(SCORE_FONT), com.qeue.madmoji.components.Color.OFF_WHITE, height, midX, midY);
+        inGameScoreLabel = new CenteredLabel("0", fontFactory.get(SCORE_FONT), com.qeue.madmoji.components.Color.OFF_WHITE, height, midX, midY+0.03*height); //didnt use offsetheight because of math
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
 
@@ -366,7 +371,7 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(statsButton);
 
-        skinsButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "Skins", rectangleButtonStyle);
+        skinsButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "urMoji", rectangleButtonStyle);
         skinsButton.setVisibility(false);
         skinsButton.setPosition((width - largeButtonWidth) / 2, 3 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         skinsButton.setClickListener(new Runnable() {
@@ -663,7 +668,7 @@ public class AhhhRound extends ApplicationAdapter {
         if (TAKING_SCREENSHOT_NUMBER != 2) {
             spinPlayerAction = Actions.repeat(-1, Actions.rotateBy(180, 1));
             player.addAction(spinPlayerAction);
-            movePlayerToCenterAction = Actions.moveTo((float) (midX - playerRadius), (float) (midY - playerRadius), 0.5f);
+            movePlayerToCenterAction = Actions.moveTo((float) (midX - playerRadius), (float) (offSetHeight - playerRadius), 0.5f);
             player.addAction(movePlayerToCenterAction);
         }
         gameOverLabel.setText(GAME_OVER_PHRASES[(int) (Math.random() * GAME_OVER_PHRASES.length)]);
