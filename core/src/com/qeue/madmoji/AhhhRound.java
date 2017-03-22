@@ -45,6 +45,7 @@ public class AhhhRound extends ApplicationAdapter {
     private final String[] GAME_OVER_PHRASES = new String[]{"Oops!", "Ouch!", "Ahhh!", "Yikes!", "Oh no!", "Uh oh!"};
     private final String REGULAR_FONT = "REGULAR_FONT";
     private final String TAP_TO_JUMP_FONT = "TAP_TO_JUMP_FONT";
+    private final String TAP_FONT = "FONT";
     private final String RECTANGLE_BUTTON_FONT = "RECTANGLE_BUTTON_FONT";
     private final String SCORE_FONT = "SCORE_FONT";
     private final int PLAY_COUNT_BEFORE_RATE_PULSE = 10;
@@ -211,7 +212,8 @@ public class AhhhRound extends ApplicationAdapter {
         Texture splashLogoTexture = new Texture("splash_logo.png");
         splashLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         splashScreenLogo = new com.qeue.madmoji.components.Image(splashLogoTexture);
-        splashScreenLogo.setBounds(0, 0, width * 0.6, width * 0.6 * (splashScreenLogo.getHeight() / splashScreenLogo.getWidth()));
+        splashScreenLogo.setBounds(0, 0, width, height);
+        //splashScreenLogo.setBounds(0, 0, width * 0.6, width * 0.6 * (splashScreenLogo.getHeight() / splashScreenLogo.getWidth()));
         splashScreenLogo.setPosition((width - splashScreenLogo.getWidth()) / 2, (height - splashScreenLogo.getHeight()) / 2);
         stage.addActor(splashScreenLogo);
     }
@@ -225,6 +227,7 @@ public class AhhhRound extends ApplicationAdapter {
 
         fontFactory.loadFont(REGULAR_FONT, DEFAULT_FONT_NAME, height/30);
         fontFactory.loadFont(TAP_TO_JUMP_FONT, DEFAULT_FONT_NAME, height/34);
+        fontFactory.loadFont(TAP_FONT, DEFAULT_FONT_NAME, height/18);
         fontFactory.loadFont(RECTANGLE_BUTTON_FONT, DEFAULT_FONT_NAME, height/39);
         fontFactory.loadFont(SCORE_FONT, DEFAULT_FONT_NAME, AssetSizeUtil.getHeightIndifferentConstant() * 3.75);
 
@@ -326,7 +329,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(gameOverHighScoreLabel);
         tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY*2*0.25));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new CenteredLabel("TAP!",fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
+        tapToStartLabel = new CenteredLabel("TAP!",fontFactory.get(TAP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
         stage.addActor(tapToStartLabel);
         inGameScoreLabel = new CenteredLabel("0", fontFactory.get(SCORE_FONT), com.qeue.madmoji.components.Color.OFF_WHITE, height, midX, midY+0.03*height); //didnt use offsetheight because of math
         updateInGameScoreLabel();
@@ -371,7 +374,7 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(statsButton);
 
-        skinsButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "urMoji", rectangleButtonStyle);
+        skinsButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "My Moji", rectangleButtonStyle);
         skinsButton.setVisibility(false);
         skinsButton.setPosition((width - largeButtonWidth) / 2, 3 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         skinsButton.setClickListener(new Runnable() {
@@ -420,7 +423,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(rateButton);
 
         boolean isMuted = gameActivityStore.isMuted();
-        muteButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius, isMuted ? assetManager.get("fa-volume-off.png", Texture.class) : assetManager.get("fa-volume-up.png", Texture.class), isMuted ? roundButtonRadius * 0.7 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
+        muteButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius, isMuted ? assetManager.get("fa-volume-off.png", Texture.class) : assetManager.get("fa-volume-up.png", Texture.class), isMuted ? roundButtonRadius * 1.0 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
         muteButton.setPositionCenter(width - roundButtonRadius, height-roundButtonRadius);
         muteButton.setClickListener(new Runnable() {
             @Override
@@ -746,7 +749,7 @@ public class AhhhRound extends ApplicationAdapter {
         boolean isMuted = gameActivityStore.isMuted();
         isMuted = !isMuted;
         muteButton.setIcon(isMuted ? assetManager.get("fa-volume-off.png", Texture.class) : assetManager.get("fa-volume-up.png", Texture.class));
-        muteButton.setIconSizeAndRightOffset(isMuted ? roundButtonRadius * 0.7 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0);
+        muteButton.setIconSizeAndRightOffset(isMuted ? roundButtonRadius * 1.0 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0);
         gameActivityStore.setIsMuted(isMuted);
     }
 

@@ -45,7 +45,7 @@ public class GameActivity extends AndroidApplication implements BannerAdInterfac
     private ShareHelper shareHelper;
     //This is the key for out ad that we are using (we only have one right now so we only need one key here
     // This is bottle flips key, change it later
-    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-1620907453021344/7731284513";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2406548650566064/2083961232"; //ca-app-pub-1620907453021344/7731284513 this is bf2k16's
     //The banner that will be getting displayed
     AdView bannerAd;
 
