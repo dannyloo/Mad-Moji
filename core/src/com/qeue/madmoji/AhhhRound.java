@@ -209,11 +209,11 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void loadSplashScreen() {
-        Texture splashLogoTexture = new Texture("splash_logo.png");
-        splashLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Texture splashLogoTexture = new Texture("splash_logo3.png");
+        //splashLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         splashScreenLogo = new com.qeue.madmoji.components.Image(splashLogoTexture);
-        splashScreenLogo.setBounds(0, 0, width, height);
-        //splashScreenLogo.setBounds(0, 0, width * 0.6, width * 0.6 * (splashScreenLogo.getHeight() / splashScreenLogo.getWidth()));
+        //splashScreenLogo.setBounds(0, 0, width, height);
+        splashScreenLogo.setBounds(0, 0, width * 0.6, width * 0.6 * (splashScreenLogo.getHeight() / splashScreenLogo.getWidth()));
         splashScreenLogo.setPosition((width - splashScreenLogo.getWidth()) / 2, (height - splashScreenLogo.getHeight()) / 2);
         stage.addActor(splashScreenLogo);
     }
@@ -251,6 +251,7 @@ public class AhhhRound extends ApplicationAdapter {
         assetManager.load("Achievements.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-off.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-up.png", Texture.class, squareTextureParameter);
+
 
         assetManager.load("die.wav", Sound.class);
         assetManager.load("jump1.wav", Sound.class);
