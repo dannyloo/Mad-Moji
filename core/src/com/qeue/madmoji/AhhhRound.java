@@ -96,6 +96,9 @@ public class AhhhRound extends ApplicationAdapter {
     private com.qeue.madmoji.components.Image logo;
     private com.qeue.madmoji.components.Image centerCircle;
     private com.qeue.madmoji.components.Image splashScreenLogo;
+    private com.qeue.madmoji.components.Image onBoardingS1;
+    private com.qeue.madmoji.components.Image onBoardingS2;
+    private com.qeue.madmoji.components.Image onBoardingS3;
     private CenteredLabel gameOverLabel;
     private CenteredLabel gameOverScoreLabel;
     private CenteredLabel gameOverHighScoreLabel;
@@ -119,6 +122,8 @@ public class AhhhRound extends ApplicationAdapter {
     private float bannerAdHeight;
     private double offSetHeight; //height offset to make it .56y
     private double offSetLabelHeight;
+    private boolean firstTimePlaying;
+    private int gameScreenNumber=0;
 
     public AhhhRound(Bus bus, GameActivityStore gameActivityStore, CharacterSkinStore characterSkinStore,
                      com.qeue.madmoji.components.BannerAdInterface bannerAdController) {
@@ -149,9 +154,18 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addListener(new com.qeue.madmoji.components.JumpInputListener(new Runnable() {
             @Override
             public void run() {
-                jump();
+                if(gameScreenNumber<4){
+                    System.out.println("going to sleep");
+                    //gameState = com.qeue.madmoji.components.GameState.SLEEPING;
+                    setToSleeping();
+
+                }
+                else {
+                    jump();
+                }
             }
         }));
+        firstTimePlaying = getPrefs().getBoolean("firstTimePlay",true);
         setupConstants();
         loadSplashScreen();
         loadAssets();
@@ -251,7 +265,9 @@ public class AhhhRound extends ApplicationAdapter {
         assetManager.load("Achievements.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-off.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-up.png", Texture.class, squareTextureParameter);
-
+        assetManager.load("Screen1 - Tap Anywhere3x.png",Texture.class, squareTextureParameter);
+        assetManager.load("Screen2 - Tap Anywhere3x.png",Texture.class, squareTextureParameter);
+        assetManager.load("Screen3 - Tap Anywhere3x.png",Texture.class, squareTextureParameter);
 
         assetManager.load("die.wav", Sound.class);
         assetManager.load("jump1.wav", Sound.class);
@@ -480,6 +496,66 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void setToSleeping() {
+
+        //if(firstTimePlaying) {
+
+        switch (gameScreenNumber) {
+
+            case 0:
+                System.out.println("CASE 0");
+                onBoardingS1 = new com.qeue.madmoji.components.Image(assetManager.get("Screen1 - Tap Anywhere3x.png", Texture.class));
+                onBoardingS1.setBounds(0, 0, width, height);
+
+                onBoardingS1.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                //onBoardingS1.setVisibility(false);
+                stage.addActor(onBoardingS1);
+
+                getPrefs().putBoolean("firstTimePlay", false);
+                getPrefs().flush();
+                firstTimePlaying = false;
+                gameScreenNumber++;
+                System.out.println("CASE 0 over");
+                break;
+
+            case 1:
+                System.out.println("CASE 1");
+                onBoardingS1.remove();
+                onBoardingS2 = new com.qeue.madmoji.components.Image(assetManager.get("Screen2 - Tap Anywhere3x.png", Texture.class));
+                onBoardingS2.setBounds(0, 0, width, height);
+
+                onBoardingS2.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                //onBoardingS1.setVisibility(false);
+                stage.addActor(onBoardingS2);
+                gameScreenNumber++;
+                break;
+
+            case 2:
+                System.out.println("CASE 2");
+                onBoardingS2.remove();
+                onBoardingS3 = new com.qeue.madmoji.components.Image(assetManager.get("Screen3 - Tap Anywhere3x.png", Texture.class));
+                onBoardingS3.setBounds(0, 0, width, height);
+
+                onBoardingS3.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                //onBoardingS1.setVisibility(false);
+                stage.addActor(onBoardingS3);
+                gameScreenNumber++;
+                break;
+
+            case 3:
+                System.out.println("CASE 3");
+                onBoardingS3.remove();
+                gameScreenNumber++;
+                break;
+
+            default:
+                break;
+
+
+        }
+
+
+        //}
+
         for (com.qeue.madmoji.components.Image enemy : enemies) {
             enemy.addAction(Actions.sequence(Actions.scaleTo(0.01f, 0.01f, 0.3f), Actions.removeActor()));
         }
@@ -530,13 +606,15 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void startPlaying() {
+
         tapToJumpLabel.fadeOut(0.5);
         gameState = com.qeue.madmoji.components.GameState.PLAYING;
         player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(characterSkinStore.getSelectedCharacterSkin().imageName, Texture.class))));
         timeSinceLastEnemySpawn = ENEMY_SPAWN_TIME;
-
+        //onBoardingS1.remove();
         achievementButton.fadeOut(0.5);
         tapToStartLabel.fadeOut(0.5);
+
     }
 
     private void updateInGameScoreLabel() {
@@ -725,6 +803,7 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void jump() {
+
         if (!gameState.isGameOver()) {
             if (!gameState.isPlaying() && !isTransitioningToSleeping) {
                 startPlaying();
@@ -743,6 +822,7 @@ public class AhhhRound extends ApplicationAdapter {
                 }
             }
         }
+
 
     }
 
