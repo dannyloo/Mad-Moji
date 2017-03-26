@@ -151,10 +151,11 @@ public class AhhhRound extends ApplicationAdapter {
     @Override
     public void create() {
         stage = new Stage();
+        firstTimePlaying = getPrefs().getBoolean("firstTimePlay",true);
         stage.addListener(new com.qeue.madmoji.components.JumpInputListener(new Runnable() {
             @Override
             public void run() {
-                if(gameScreenNumber<4){
+                if(gameScreenNumber<4 && firstTimePlaying){
                     System.out.println("going to sleep");
                     //gameState = com.qeue.madmoji.components.GameState.SLEEPING;
                     setToSleeping();
@@ -165,7 +166,7 @@ public class AhhhRound extends ApplicationAdapter {
                 }
             }
         }));
-        firstTimePlaying = getPrefs().getBoolean("firstTimePlay",true);
+
         setupConstants();
         loadSplashScreen();
         loadAssets();
@@ -501,68 +502,68 @@ public class AhhhRound extends ApplicationAdapter {
 
     private void setToSleeping() {
 
-        //if(firstTimePlaying) {
+        if(firstTimePlaying) {
 
-        switch (gameScreenNumber) {
+            switch (gameScreenNumber) {
 
-            case 0:
-                System.out.println("CASE 0");
-                tapToStartLabel.setVisible(false);
-                tapToJumpLabel.setVisible(false);
-                onBoardingS1 = new com.qeue.madmoji.components.Image(assetManager.get("Screen1 - Tap Anywhere3x.png", Texture.class));
-                onBoardingS1.setBounds(0, 0, width, height);
+                case 0:
+                    System.out.println("CASE 0");
+                    tapToStartLabel.setVisible(false);
+                    tapToJumpLabel.setVisible(false);
+                    onBoardingS1 = new com.qeue.madmoji.components.Image(assetManager.get("Screen1 - Tap Anywhere3x.png", Texture.class));
+                    onBoardingS1.setBounds(0, 0, width, height);
 
-                onBoardingS1.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
-                //onBoardingS1.setVisibility(false);
-                stage.addActor(onBoardingS1);
+                    onBoardingS1.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                    //onBoardingS1.setVisibility(false);
+                    stage.addActor(onBoardingS1);
 
-                getPrefs().putBoolean("firstTimePlay", false);
-                getPrefs().flush();
-                firstTimePlaying = false;
-                gameScreenNumber++;
-                System.out.println("CASE 0 over");
-                break;
+                    gameScreenNumber++;
+                    System.out.println("CASE 0 over");
+                    break;
 
-            case 1:
-                System.out.println("CASE 1");
-                onBoardingS1.remove();
-                onBoardingS2 = new com.qeue.madmoji.components.Image(assetManager.get("Screen2 - Tap Anywhere3x.png", Texture.class));
-                onBoardingS2.setBounds(0, 0, width, height);
+                case 1:
+                    System.out.println("CASE 1");
+                    onBoardingS1.remove();
+                    onBoardingS2 = new com.qeue.madmoji.components.Image(assetManager.get("Screen2 - Tap Anywhere3x.png", Texture.class));
+                    onBoardingS2.setBounds(0, 0, width, height);
 
-                onBoardingS2.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
-                //onBoardingS1.setVisibility(false);
-                stage.addActor(onBoardingS2);
-                gameScreenNumber++;
-                break;
+                    onBoardingS2.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                    //onBoardingS1.setVisibility(false);
+                    stage.addActor(onBoardingS2);
+                    gameScreenNumber++;
+                    break;
 
-            case 2:
-                System.out.println("CASE 2");
-                onBoardingS2.remove();
-                onBoardingS3 = new com.qeue.madmoji.components.Image(assetManager.get("Screen3 - Tap Anywhere3x.png", Texture.class));
-                onBoardingS3.setBounds(0, 0, width, height);
+                case 2:
+                    System.out.println("CASE 2");
+                    onBoardingS2.remove();
+                    onBoardingS3 = new com.qeue.madmoji.components.Image(assetManager.get("Screen3 - Tap Anywhere3x.png", Texture.class));
+                    onBoardingS3.setBounds(0, 0, width, height);
 
-                onBoardingS3.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
-                //onBoardingS1.setVisibility(false);
-                stage.addActor(onBoardingS3);
-                gameScreenNumber++;
-                break;
+                    onBoardingS3.setPosition(0, 0); //moved label up a fixed amount. chose 0.06 since game was shifted up that value
+                    //onBoardingS1.setVisibility(false);
+                    stage.addActor(onBoardingS3);
+                    gameScreenNumber++;
+                    break;
 
-            case 3:
-                System.out.println("CASE 3");
-                onBoardingS3.remove();
-                gameScreenNumber++;
-                tapToStartLabel.setVisible(true);
-                tapToJumpLabel.setVisible(true);
-                break;
+                case 3:
+                    System.out.println("CASE 3");
+                    onBoardingS3.remove();
+                    gameScreenNumber++;
+                    tapToStartLabel.setVisible(true);
+                    tapToJumpLabel.setVisible(true);
+                    getPrefs().putBoolean("firstTimePlay", false);
+                    getPrefs().flush();
+                    firstTimePlaying = false;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+
+
+            }
 
 
         }
-
-
-        //}
 
         for (com.qeue.madmoji.components.Image enemy : enemies) {
             enemy.addAction(Actions.sequence(Actions.scaleTo(0.01f, 0.01f, 0.3f), Actions.removeActor()));
