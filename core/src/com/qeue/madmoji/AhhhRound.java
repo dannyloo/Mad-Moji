@@ -344,10 +344,12 @@ public class AhhhRound extends ApplicationAdapter {
         gameOverHighScoreLabel = new CenteredLabel(fontFactory.get(REGULAR_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, height - 4 * lineHeight - labelSpacing * 3 - (offSetLabelHeight - centerCircleRadius * 0.25 - playerRadius * 2 - labelSpacing * 3 - lineHeight * 4.5) / 2);
         gameOverHighScoreLabel.setVisibility(false);
         stage.addActor(gameOverHighScoreLabel);
-        tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY*2*0.25));
+
+        tapToJumpLabel = new CenteredLabel("1 TAP = 1 POINT", fontFactory.get(TAP_TO_JUMP_FONT), com.qeue.madmoji.components.Color.OFF_BLACK, height, midX, (midY * 2 * 0.25));
         stage.addActor(tapToJumpLabel);
-        tapToStartLabel = new CenteredLabel("TAP!",fontFactory.get(TAP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY*2*.85));
+        tapToStartLabel = new CenteredLabel("TAP!", fontFactory.get(TAP_FONT), com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]), height, midX, (midY * 2 * .85));
         stage.addActor(tapToStartLabel);
+
         inGameScoreLabel = new CenteredLabel("0", fontFactory.get(SCORE_FONT), com.qeue.madmoji.components.Color.OFF_WHITE, height, midX, midY+0.03*height); //didnt use offsetheight because of math
         updateInGameScoreLabel();
         stage.addActor(inGameScoreLabel);
@@ -489,9 +491,11 @@ public class AhhhRound extends ApplicationAdapter {
         menuElements.add(skinsButton);
         menuElements.add(rateButton);
         inGameElements.add(inGameScoreLabel);
-        inGameElements.add(tapToJumpLabel);
         inGameElements.add(achievementButton);
+
+
         inGameElements.add(tapToStartLabel);
+        inGameElements.add(tapToJumpLabel);
 
     }
 
@@ -503,6 +507,8 @@ public class AhhhRound extends ApplicationAdapter {
 
             case 0:
                 System.out.println("CASE 0");
+                tapToStartLabel.setVisible(false);
+                tapToJumpLabel.setVisible(false);
                 onBoardingS1 = new com.qeue.madmoji.components.Image(assetManager.get("Screen1 - Tap Anywhere3x.png", Texture.class));
                 onBoardingS1.setBounds(0, 0, width, height);
 
@@ -545,6 +551,8 @@ public class AhhhRound extends ApplicationAdapter {
                 System.out.println("CASE 3");
                 onBoardingS3.remove();
                 gameScreenNumber++;
+                tapToStartLabel.setVisible(true);
+                tapToJumpLabel.setVisible(true);
                 break;
 
             default:
@@ -608,12 +616,13 @@ public class AhhhRound extends ApplicationAdapter {
     private void startPlaying() {
 
         tapToJumpLabel.fadeOut(0.5);
+        tapToStartLabel.fadeOut(0.5);
         gameState = com.qeue.madmoji.components.GameState.PLAYING;
         player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(characterSkinStore.getSelectedCharacterSkin().imageName, Texture.class))));
         timeSinceLastEnemySpawn = ENEMY_SPAWN_TIME;
         //onBoardingS1.remove();
         achievementButton.fadeOut(0.5);
-        tapToStartLabel.fadeOut(0.5);
+        //tapToStartLabel.fadeOut(0.5);
 
     }
 
@@ -634,16 +643,18 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void spawnEnemy() {
+        double tempScore = score + 1;
         double minAngle = player.getCurrentAngleFromCenter() + Math.PI / 2 + Math.PI / 4;
         double selectedAngle = ((minAngle * 1000 + Math.random() * Math.PI * 500.0) / 1000.0)+0.000000000001;
-        //full 360 degree rotation is selectedAngle = 6.3 wtf
-        System.out.println("getcurrentangle is "+ player.getCurrentAngleFromCenter());
-        System.out.println("selectAngle is "+ selectedAngle);
-        Character enemy = new Character(playerRadius * 2, playerRadius, selectedAngle, 0.5, assetManager.get("enemy.png", Texture.class));
-        enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
-        stage.addActor(enemy);
-        enemies.add(enemy);
-        timeSinceLastEnemySpawn = 0;
+        Character enemy = new Character(playerRadius*2, playerRadius, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
+        if(tempScore <= 5) {
+            enemy = new Character(playerRadius*(1.5 + (tempScore) / 10.0), (playerRadius * (1.5 + (tempScore) / 10.0)) / 2, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
+            System.out.println("TEMPSCORE!!!!!!!!!!!!!!!!!" + tempScore);
+        }
+            enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
+            stage.addActor(enemy);
+            enemies.add(enemy);
+            timeSinceLastEnemySpawn = 0;
     }
 
     private void finishedJump() {
@@ -696,8 +707,15 @@ public class AhhhRound extends ApplicationAdapter {
     private void checkForCollisions() {
         if (!gameState.isGameOver()) {
             for (Character enemy : enemies) {
-                if (Math.sqrt((enemy.getX() - player.getX()) * (enemy.getX() - player.getX()) + (enemy.getY() - player.getY()) * (enemy.getY() - player.getY())) < (playerRadius * 2)) {
-                    gameOver(enemy);
+                if(score<5) {
+                    if (Math.sqrt((enemy.getX() - player.getX()) * (enemy.getX() - player.getX()) + (enemy.getY() - player.getY()) * (enemy.getY() - player.getY())) < (playerRadius * (1.5 + (score+1)/10))) {
+                        gameOver(enemy);
+                    }
+                }
+                else{
+                    if (Math.sqrt((enemy.getX() - player.getX()) * (enemy.getX() - player.getX()) + (enemy.getY() - player.getY()) * (enemy.getY() - player.getY())) < (playerRadius * 2)) {
+                        gameOver(enemy);
+                    }
                 }
             }
         }
