@@ -16,8 +16,8 @@ android {
     }
     defaultConfig {
         applicationId "com.qeue.madmoji"
-        minSdkVersion 19
-        targetSdkVersion 24
+        minSdkVersion 16
+        targetSdkVersion 16
     }
     useLibrary 'org.apache.http.legacy'
 }
