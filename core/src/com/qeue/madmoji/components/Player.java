@@ -16,14 +16,17 @@ public class Player extends Character {
     private double jumpAirTime;
     private double movementSpeed;
 
-    public Player(double width, double characterRadius, double initialAngleFromCenter, double midpointPercent, Texture texture, double jumpHeight) {
+    public Player(double width, double characterRadius, double initialAngleFromCenter, double midpointPercent, Texture texture, double jumpHeight, boolean firstTimePlay) {
         super(width, characterRadius, initialAngleFromCenter, midpointPercent, texture);
         this.jumpHeight = jumpHeight;
         movementSpeed = INITIAL_SPEED;
+        if (firstTimePlay)
+            movementSpeed=0;
         jumpAirTime = INITIAL_JUMP_AIR_TIME;
         elapsedJumpTime = 0;
         jumpStartAngle = 0;
         currentlyJumping = false;
+
     }
 
     public void updateAngleAndPosition(double timeSinceLastUpdate, double orbitRadius, Point orbitCenter) {

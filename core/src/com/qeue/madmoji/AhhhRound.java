@@ -255,6 +255,7 @@ public class AhhhRound extends ApplicationAdapter {
         rectangularTextureParameter.magFilter = Texture.TextureFilter.Linear;
 
         assetManager.load("sleepingPlayer.png", Texture.class, squareTextureParameter);
+        assetManager.load("player8.png", Texture.class, squareTextureParameter);
         for (CharacterSkin skin : characterSkinStore.getAllSkins()) {
             assetManager.load(skin.imageName, Texture.class, squareTextureParameter);
         }
@@ -311,7 +312,10 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void setupPlayer() {
-        player = new com.qeue.madmoji.components.Player(playerRadius * 2, playerRadius, -Math.PI / 2, 0.5, assetManager.get("sleepingPlayer.png", Texture.class), jumpHeight);
+        player = new com.qeue.madmoji.components.Player(playerRadius * 2, playerRadius, -Math.PI / 2, 0.5, assetManager.get("sleepingPlayer.png", Texture.class), jumpHeight, false);
+        if(firstTimePlaying) {
+            player = new com.qeue.madmoji.components.Player(playerRadius * 2, playerRadius, Math.PI / 4, 0.5, assetManager.get("player8.png", Texture.class), jumpHeight,true);
+        }
         player.setZIndex(centerCircle.getZIndex() + 1);
         if (TAKING_SCREENSHOT_NUMBER == 1) {
             player.setPosition(midX - playerRadius, midY + centerCircleRadius);
@@ -554,6 +558,9 @@ public class AhhhRound extends ApplicationAdapter {
                     getPrefs().putBoolean("firstTimePlay", false);
                     getPrefs().flush();
                     firstTimePlaying = false;
+                    player.setVisibility(false);
+                    player = new com.qeue.madmoji.components.Player(playerRadius * 2, playerRadius, -Math.PI / 2, 0.5, assetManager.get("sleepingPlayer.png", Texture.class), jumpHeight, false);
+                    stage.addActor(player);
                     break;
 
                 default:
@@ -561,7 +568,6 @@ public class AhhhRound extends ApplicationAdapter {
 
 
             }
-
 
         }
 
@@ -583,6 +589,7 @@ public class AhhhRound extends ApplicationAdapter {
             }
             rateButton.endTextPulsate();
             skinsButton.endTextPulsate();
+
             player.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                 @Override
                 public void run() {
@@ -593,6 +600,8 @@ public class AhhhRound extends ApplicationAdapter {
                         player.removeAction(movePlayerToCenterAction);
                     }
                     isTransitioningToSleeping = false;
+
+
                     player.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get("sleepingPlayer.png", Texture.class))));
                     player.setPositionAroundCircle(-Math.PI / 2, centerCircleRadius, centerCircleCenter);
                     player.fadeIn(0.5);
