@@ -83,7 +83,7 @@ public class StatsActivity extends Activity {
 
     public void setupHeader() {
         TextView header = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_header);
-        header.initialize(AssetSizeUtil.outOfGameFontSize(statFont), AhhhRound.DEFAULT_FONT_NAME, Color.OFF_BLACK);
+        header.initialize(AssetSizeUtil.outOfGameFontSize(48), AhhhRound.DEFAULT_FONT_NAME, Color.OFF_BLACK);
     }
 
     public void setupLabels() {
@@ -106,16 +106,16 @@ public class StatsActivity extends Activity {
             tv.initialize(AssetSizeUtil.outOfGameFontSize(20), AhhhRound.DEFAULT_FONT_NAME, Color.OFF_BLACK);
         }
 
-        highScoreValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(pointFont));
+        highScoreValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(32));
         highScoreValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getHighScore()));
 
-        totalPlaysValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(pointFont));
+        totalPlaysValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(32));
         totalPlaysValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getTotalPlays()));
 
-        totalJumpsValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(pointFont));
+        totalJumpsValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(32));
         totalJumpsValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getTotalJumps()));
 
-        totalDaysPlayedTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(pointFont));
+        totalDaysPlayedTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(32));
         totalDaysPlayedTextView.setText(ThousandsFormatter.format(gameActivityStore.getDaysPlayedInARow()));
     }
 
