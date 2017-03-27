@@ -60,7 +60,7 @@
         android:layout_height="wrap_content" />
     <com.qeue.madmoji.components.TextView
         android:id="@+id/stats_activity_total_days_label"
-        android:text="Days Played In A Row"
+        android:text="Days In A Row"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
