@@ -142,17 +142,17 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
                     if (event.score >= 1) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1_id));
                     }
-                    if (event.score >= 5) {
-                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_5_id));
-                    }
                     if (event.score >= 10) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_10_id));
                     }
                     if (event.score >= 25) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_25_id));
                     }
-                    if (event.score >= 100) {
-                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_100_id));
+                    if (event.score >= 50) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_50_id));
+                    }
+                    if (event.totalJumps >= 1000) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1000_jumps_id));
                     }
                 }
             }
