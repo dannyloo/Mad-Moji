@@ -139,6 +139,7 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.highscore_leaderboard_id), event.score);
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_jumps_leaderboard_id), event.totalJumps);
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_plays_leaderboard_id), event.totalPlays);
+
                     if (event.score >= 1) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1_id));
                     }
@@ -153,6 +154,21 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
                     }
                     if (event.totalJumps >= 1000) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1000_jumps_id));
+                    }
+                    if (event.totalJumps >= 2500) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_2500_jumps_id));
+                    }
+                    if (event.totalJumps >= 5000) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_5000_jumps_id));
+                    }
+                    if (event.totalPlays >= 1000) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1000_plays_id));
+                    }
+                    if (event.daysPlayedInARow >= 2) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_2_days_id));
+                    }
+                    if (event.daysPlayedInARow >= 7) {
+                        Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_7_days_id));
                     }
                 }
             }

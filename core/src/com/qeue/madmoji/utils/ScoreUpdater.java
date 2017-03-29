@@ -28,7 +28,7 @@ public class ScoreUpdater {
         updateDaysPlayedInARow();
         characterSkinStore.checkForAnyNewUnlockedSkins(false);
 
-        bus.post(new UpdateGooglePlayGamesEvent(score, gameActivityStore.getTotalJumps(), gameActivityStore.getTotalPlays()));
+        bus.post(new UpdateGooglePlayGamesEvent(score, gameActivityStore.getTotalJumps(), gameActivityStore.getTotalPlays(), gameActivityStore.getDaysPlayedInARow()));
     }
 
     private void updateDaysPlayedInARow() {
