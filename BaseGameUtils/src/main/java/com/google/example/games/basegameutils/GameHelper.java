@@ -598,6 +598,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
      * onSignInSucceeded() or onSignInFailed() methods will be called.
      */
     public void beginUserInitiatedSignIn() {
+        System.out.println("beginning signing in");
         debugLog("beginUserInitiatedSignIn: resetting attempt count.");
         resetSignInCancellations();
         mSignInCancelled = false;
