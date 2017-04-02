@@ -3,20 +3,20 @@
     <string name="app_name">Mad Moji</string>
 
     <string name="interstitial_ad_unit_id">FIXME</string>
-    <string name="app_id">150709404011</string>
-    <string name="highscore_leaderboard_id">CgkI64Lst7EEEAIQAw</string>
-    <string name="total_jumps_leaderboard_id">CgkI64Lst7EEEAIQAQ</string>
-    <string name="total_plays_leaderboard_id">CgkI64Lst7EEEAIQAg</string>
-    <string name="achievement_1_id">CgkI64Lst7EEEAIQBA</string>
-    <string name="achievement_10_id">CgkI64Lst7EEEAIQBg</string>
-    <string name="achievement_25_id">CgkI64Lst7EEEAIQBw</string>
-    <string name="achievement_50_id">CgkI64Lst7EEEAIQCw</string>
-    <string name="achievement_1000_jumps_id">CgkI64Lst7EEEAIQDA</string>
-    <string name="achievement_2500_jumps_id">CgkI64Lst7EEEAIQDQ</string>
-    <string name="achievement_5000_jumps_id">CgkI64Lst7EEEAIQDg</string>
-    <string name="achievement_1000_plays_id">CgkI64Lst7EEEAIQDw</string>
-    <string name="achievement_2_days_id">CgkI64Lst7EEEAIQEA</string>
-    <string name="achievement_7_days_id">CgkI64Lst7EEEAIQEQ</string>
+    <string name="app_id">918719737446</string>
+    <string name="highscore_leaderboard_id">CgkI5tzav94aEAIQDQ</string>
+    <string name="total_jumps_leaderboard_id">CgkI5tzav94aEAIQCw</string>
+    <string name="total_plays_leaderboard_id">CgkI5tzav94aEAIQDA</string>
+    <string name="achievement_1_id">CgkI5tzav94aEAIQAQ</string>
+    <string name="achievement_10_id">CgkI5tzav94aEAIQAg</string>
+    <string name="achievement_25_id">CgkI5tzav94aEAIQAw</string>
+    <string name="achievement_50_id">CgkI5tzav94aEAIQBA</string>
+    <string name="achievement_1000_jumps_id">CgkI5tzav94aEAIQBQ</string>
+    <string name="achievement_2500_jumps_id">CgkI5tzav94aEAIQBg</string>
+    <string name="achievement_5000_jumps_id">CgkI5tzav94aEAIQBw</string>
+    <string name="achievement_1000_plays_id">CgkI5tzav94aEAIQCA</string>
+    <string name="achievement_2_days_id">CgkI5tzav94aEAIQCQ</string>
+    <string name="achievement_7_days_id">CgkI5tzav94aEAIQCg</string>
     <string name="public_key">FIXME__IN_APP_BILLING_PUBLIC_KEY</string>
     <string name="remove_ads_sku">remove_ads</string>
 
