@@ -447,6 +447,7 @@ public class AhhhRound extends ApplicationAdapter {
         stage.addActor(rateButton);
 
         boolean isMuted = gameActivityStore.isMuted();
+
         muteButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius, isMuted ? assetManager.get("fa-volume-off.png", Texture.class) : assetManager.get("fa-volume-up.png", Texture.class), isMuted ? roundButtonRadius * 1.0 : roundButtonRadius, isMuted ? -roundButtonRadius / 32 : 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
         muteButton.setPositionCenter(width - roundButtonRadius, height-roundButtonRadius);
         muteButton.setClickListener(new Runnable() {
@@ -512,6 +513,8 @@ public class AhhhRound extends ApplicationAdapter {
 
                 case 0:
                     System.out.println("CASE 0");
+                    achievementButton.setVisible(false);
+                    muteButton.setVisibility(false);
                     tapToStartLabel.setVisible(false);
                     tapToJumpLabel.setVisible(false);
                     onBoardingS1 = new com.qeue.madmoji.components.Image(assetManager.get("Screen1 - Tap Anywhere3x.png", Texture.class));
@@ -555,6 +558,8 @@ public class AhhhRound extends ApplicationAdapter {
                     gameScreenNumber++;
                     tapToStartLabel.setVisible(true);
                     tapToJumpLabel.setVisible(true);
+                    muteButton.setVisibility(true);
+                    achievementButton.setVisible(true);
                     getPrefs().putBoolean("firstTimePlay", false);
                     getPrefs().flush();
                     firstTimePlaying = false;
