@@ -20,6 +20,8 @@ android {
         targetSdkVersion 16
     }
     useLibrary 'org.apache.http.legacy'
+    buildTypes {
+    }
 }
 
 // called every time gradle gets executed, takes the native dependencies of

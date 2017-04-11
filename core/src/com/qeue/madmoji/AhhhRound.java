@@ -715,10 +715,11 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void checkForCollisions() {
+        double tempScore1 = score+1;
         if (!gameState.isGameOver()) {
             for (Character enemy : enemies) {
                 if(score<5) {
-                    if (Math.sqrt((enemy.getX() - player.getX()) * (enemy.getX() - player.getX()) + (enemy.getY() - player.getY()) * (enemy.getY() - player.getY())) < (playerRadius * (1.5 + (score+1)/10))) {
+                    if (Math.sqrt((enemy.getX() - player.getX()) * (enemy.getX() - player.getX()) + (enemy.getY() - player.getY()) * (enemy.getY() - player.getY())) < (playerRadius * (1.5 + (tempScore1)/10.0))) {
                         gameOver(enemy);
                     }
                 }
