@@ -170,7 +170,7 @@ public class AhhhRound extends ApplicationAdapter {
         setupConstants();
         loadSplashScreen();
         loadAssets();
-        startAds();
+        //startAds();
     }
 
     @Override
@@ -295,6 +295,7 @@ public class AhhhRound extends ApplicationAdapter {
             setToSleeping();
         }
         updateRemoveAdsButton();
+        startAds();
     }
 
     private void loadSounds() {
@@ -471,13 +472,15 @@ public class AhhhRound extends ApplicationAdapter {
 //        updateRemoveAdsButton();
 //        stage.addActor(removeAdsButton);
 
+
         achievementButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
         achievementButton.setPositionCenter(roundButtonRadius, height - roundButtonRadius);
         achievementButton.setClickListener(new Runnable() {
             @Override
             public void run() {
                 if (gameState.isSleeping()) {
-                    bus.post(new com.qeue.madmoji.events.ShowSkinsActivityEvent());
+                    gameOver(killer);
+                    //bus.post(new com.qeue.madmoji.events.ShowSkinsActivityEvent());
                 }
             }
         });
