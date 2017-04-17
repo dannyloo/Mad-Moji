@@ -139,4 +139,8 @@ public class StatsActivity extends Activity {
             }
         });
     }
+
+    public void signInToLeaderboards(){
+        googlePlayGamesHelper.attemptToShowLeaderboard();
+    }
 }

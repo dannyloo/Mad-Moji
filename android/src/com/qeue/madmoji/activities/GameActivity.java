@@ -29,6 +29,7 @@ import com.qeue.madmoji.components.BannerAdInterface;
 import com.qeue.madmoji.events.RateAppEvent;
 import com.qeue.madmoji.events.ShowSkinsActivityEvent;
 import com.qeue.madmoji.events.ShowStatsActivityEvent;
+import com.qeue.madmoji.events.ShowLeaderboardEvent;
 import com.qeue.madmoji.stores.GameActivityStore;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -126,9 +127,10 @@ public class GameActivity extends AndroidApplication implements BannerAdInterfac
     }
 
     @Subscribe
-    public void showStatsActivity(final ShowStatsActivityEvent event) {
-        Intent statsActivityIntent = new Intent(this, StatsActivity.class);
-        startActivity(statsActivityIntent);
+    public void showStatsActivity(final ShowLeaderboardEvent event) {
+//        Intent statsActivityIntent = new Intent(this, StatsActivity.class);
+//        startActivity(statsActivityIntent);
+        googlePlayGamesHelper.attemptToShowLeaderboard();
     }
 
     @Subscribe

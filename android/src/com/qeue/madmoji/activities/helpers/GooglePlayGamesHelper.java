@@ -139,6 +139,7 @@ public class GooglePlayGamesHelper implements GameHelper.GameHelperListener {
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.highscore_leaderboard_id), event.score);
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_jumps_leaderboard_id), event.totalJumps);
                     Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_plays_leaderboard_id), event.totalPlays);
+                    Games.Leaderboards.submitScore(gameHelper.getApiClient(), activity.getResources().getString(R.string.total_days_plays_leaderboard_id), event.daysPlayedInARow);
 
                     if (event.score >= 1) {
                         Games.Achievements.unlock(gameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_1_id));
