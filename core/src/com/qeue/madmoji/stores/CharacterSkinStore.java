@@ -67,6 +67,10 @@ public class CharacterSkinStore {
 
     private List<CharacterSkin> populateCharacterSkins() {
         List<CharacterSkin> skinList = new ArrayList<CharacterSkin>();
+
+
+
+
         CharacterSkin firstSkin = new CharacterSkin("player1.png", new String[]{"Open the app"}, new CharacterSkin.UnlockPredicate() {
             @Override
             public boolean run() {

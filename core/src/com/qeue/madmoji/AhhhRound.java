@@ -109,7 +109,7 @@ public class AhhhRound extends ApplicationAdapter {
 
     private com.qeue.madmoji.components.RectangleButton.Style playAgainButtonStyle;
     private com.qeue.madmoji.components.RectangleButton playAgainButton;
-    private com.qeue.madmoji.components.RectangleButton statsButton;
+    private com.qeue.madmoji.components.RectangleButton leaderboardButton;
     private com.qeue.madmoji.components.RectangleButton skinsButton;
     private com.qeue.madmoji.components.RoundButton muteButton;
     private com.qeue.madmoji.components.RoundButton removeAdsButton;
@@ -385,19 +385,19 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(playAgainButton);
 
-        statsButton = new com.qeue.madmoji.components.RectangleButton(smallButtonWidth, rectButtonHeight, "Stats", rectangleButtonStyle);
-        statsButton.setVisibility(false);
-        statsButton.setPosition((width - largeButtonWidth) / 2, (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
-        statsButton.setClickListener(new Runnable() {
+        leaderboardButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "Leaderboards", rectangleButtonStyle);
+        leaderboardButton.setVisibility(false);
+        leaderboardButton.setPosition((width - buttonSpacing) / 2 - smallButtonWidth, 2 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        leaderboardButton.setClickListener(new Runnable() {
             @Override
             public void run() {
                 if (gameState.isGameOver() && !isTransitioningToMenu) {
-                    bus.post(new com.qeue.madmoji.events.ShowStatsActivityEvent());
+                    bus.post(new com.qeue.madmoji.events.ShowLeaderboardEvent());
                 }
 
             }
         });
-        stage.addActor(statsButton);
+        stage.addActor(leaderboardButton);
 
         skinsButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "My Moji", rectangleButtonStyle);
         skinsButton.setVisibility(false);
@@ -428,9 +428,9 @@ public class AhhhRound extends ApplicationAdapter {
         });
         stage.addActor(shareButton);
 
-        rateButton = new com.qeue.madmoji.components.RectangleButton(largeButtonWidth, rectButtonHeight, "Rate", rectangleButtonStyle);
+        rateButton = new com.qeue.madmoji.components.RectangleButton(smallButtonWidth, rectButtonHeight, "Rate", rectangleButtonStyle);
         rateButton.setVisibility(false);
-        rateButton.setPosition((width - buttonSpacing) / 2 - smallButtonWidth, 2 * (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
+        rateButton.setPosition((width - largeButtonWidth) / 2, (rectButtonHeight + buttonSpacing) + (midY - centerCircleRadius * 0.25 - buttonSpacing * 5 - 4 * rectButtonHeight) / 2);
         rateButton.setClickListener(new Runnable() {
             @Override
             public void run() {
@@ -479,7 +479,8 @@ public class AhhhRound extends ApplicationAdapter {
             @Override
             public void run() {
                 if (gameState.isSleeping()) {
-                    gameOver(killer);
+                    mainMenu();
+                    //gameOver(killer);
                     //bus.post(new com.qeue.madmoji.events.ShowSkinsActivityEvent());
                 }
             }
@@ -495,14 +496,12 @@ public class AhhhRound extends ApplicationAdapter {
         menuElements.add(logo);
         menuElements.add(gameOverHighScoreLabel);
         menuElements.add(playAgainButton);
-        menuElements.add(statsButton);
+        menuElements.add(leaderboardButton);
         menuElements.add(shareButton);
         menuElements.add(skinsButton);
         menuElements.add(rateButton);
         inGameElements.add(inGameScoreLabel);
         inGameElements.add(achievementButton);
-
-
         inGameElements.add(tapToStartLabel);
         inGameElements.add(tapToJumpLabel);
 
@@ -796,6 +795,60 @@ public class AhhhRound extends ApplicationAdapter {
         gameOverLabel.setText(GAME_OVER_PHRASES[(int) (Math.random() * GAME_OVER_PHRASES.length)]);
         gameOverScoreLabel.setText("SCORE: " + score);
         gameOverHighScoreLabel.setText("BEST: " + gameActivityStore.getHighScore());
+
+        for (AhhhroundGameElement element : menuElements) {
+            element.fadeIn(0.5);
+        }
+        for (AhhhroundGameElement element : inGameElements) {
+            element.fadeOut(0.5);
+        }
+        stage.addAction(Actions.delay(0.5f, Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                isTransitioningToMenu = false;
+                if (!gameActivityStore.hasRatedApp() && gameActivityStore.getTotalPlays() > PLAY_COUNT_BEFORE_RATE_PULSE) {
+                    rateButton.beginTextPulsate();
+                }
+                if (gameActivityStore.hasUnseenLockedCharacterSkins()) {
+                    skinsButton.beginTextPulsate();
+                }
+            }
+        })));
+
+        tapToStartLabel.setColor(com.qeue.madmoji.components.Color.valueOf(CENTER_CIRCLE_COLORS[currentCircleColorIndex]));
+    }
+
+    private void mainMenu() {
+        isTransitioningToMenu = true;
+        gamesSinceLastAd++;
+        gameState = com.qeue.madmoji.components.GameState.GAME_OVER;
+        centerCircle.addAction(Actions.scaleTo(0.25f, 0.25f, 0.5f));
+        stage.addAction(Actions.sequence(Actions.delay(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                if (!gameActivityStore.hasPaidToRemoveAds()
+                        && gamesSinceLastAd > MIN_GAME_COUNT_BEFORE_AD_IS_DISPLAYED
+                        && System.currentTimeMillis() - timeLastAdDisplayed >= MIN_TIME_BEFORE_AD_IS_DISPLAYED * 1000) {
+                    bus.post(new ShowAdEvent());
+                }
+            }
+        })));
+        scoreUpdater.updateWithScore(score);
+
+        player.die();
+        if (!gameActivityStore.isMuted()) {
+            deathSound.play();
+        }
+
+        if (TAKING_SCREENSHOT_NUMBER != 2) {
+            spinPlayerAction = Actions.repeat(-1, Actions.rotateBy(180, 1));
+            player.addAction(spinPlayerAction);
+            movePlayerToCenterAction = Actions.moveTo((float) (midX - playerRadius), (float) (offSetHeight - playerRadius), 0.5f);
+            player.addAction(movePlayerToCenterAction);
+        }
+        gameOverLabel.setText("");
+        gameOverScoreLabel.setText("");
+        gameOverHighScoreLabel.setText("Main Menu");
 
         for (AhhhroundGameElement element : menuElements) {
             element.fadeIn(0.5);

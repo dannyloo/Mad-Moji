@@ -10,10 +10,77 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stats_layout"
+        android:stretchColumns="*"
+        >
+
+        <TableRow>
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_high_score_label"
+                android:text="Highscore"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_jumps_label"
+                android:text="Jumps"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_plays_label"
+                android:text="Plays"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_days_label"
+                android:text="Days Plays"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_high_score_value"
+
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_jumps_value"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_plays_value"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+            <com.qeue.madmoji.components.TextView
+                android:id="@+id/stats_activity_total_days_value"
+                android:layout_width="0dp"
+                android:gravity="center"
+                />
+
+        </TableRow>
+    </TableLayout>
+    <!--</LinearLayout>-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stats_layout">
         <ListView
             android:id="@+id/skin_list_view"
             android:listSelector="@android:color/transparent"

@@ -24,6 +24,7 @@ import com.qeue.madmoji.components.CharacterSkin;
 import com.qeue.madmoji.stores.CharacterSkinStore;
 import com.qeue.madmoji.stores.GameActivityStore;
 import com.qeue.madmoji.utils.AssetSizeUtil;
+import com.qeue.madmoji.utils.ThousandsFormatter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +37,12 @@ public class SelectSkinActivity extends Activity {
     private GameActivityStore gameActivityStore;
     private List<Drawable> skinDrawableCache = new ArrayList<>();
     private RoundedButton doneButton;
+
+    private List<TextView> textViews = new ArrayList<>();
+    private TextView highScoreValueTextView;
+    private TextView totalPlaysValueTextView;
+    private TextView totalJumpsValueTextView;
+    private TextView totalDaysPlayedTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,52 @@ public class SelectSkinActivity extends Activity {
     private void setupHeader() {
         TextView header = (TextView) findViewById(com.qeue.madmoji.R.id.select_skin_text_view);
         header.initialize(AssetSizeUtil.outOfGameFontSize(26), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header1 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_label);
+        header1.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header2 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_plays_label);
+        header2.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header3 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_high_score_label);
+        header3.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header4 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_label);
+        header4.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header5 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_value);
+        header5.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header6 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_plays_value);
+        header6.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header7 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_high_score_value);
+        header7.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+        TextView header8 = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_value);
+        header8.initialize(AssetSizeUtil.outOfGameFontSize(14), AhhhRound.DEFAULT_FONT_NAME, com.qeue.madmoji.components.Color.OFF_BLACK);
+
+
+        highScoreValueTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_high_score_value);
+        textViews.add(highScoreValueTextView);
+        totalPlaysValueTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_plays_value);
+        textViews.add(totalPlaysValueTextView);
+        totalJumpsValueTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_jumps_value);
+        textViews.add(totalJumpsValueTextView);
+        totalDaysPlayedTextView = (TextView) findViewById(com.qeue.madmoji.R.id.stats_activity_total_days_value);
+        textViews.add(totalDaysPlayedTextView);
+
+        highScoreValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(14));
+        highScoreValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getHighScore()));
+
+        totalPlaysValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(14));
+        totalPlaysValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getTotalPlays()));
+
+        totalJumpsValueTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(14));
+        totalJumpsValueTextView.setText(ThousandsFormatter.format(gameActivityStore.getTotalJumps()));
+
+        totalDaysPlayedTextView.setTextSize(AssetSizeUtil.outOfGameFontSize(14));
+        totalDaysPlayedTextView.setText(ThousandsFormatter.format(gameActivityStore.getDaysPlayedInARow()));
     }
 
     private void setupButton() {
