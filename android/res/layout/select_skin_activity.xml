@@ -53,7 +53,6 @@
         <TableRow>
             <com.qeue.madmoji.components.TextView
                 android:id="@+id/stats_activity_high_score_value"
-
                 android:layout_width="0dp"
                 android:gravity="center"
                 />
@@ -79,8 +78,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/stats_layout">
+        android:layout_height="0dp">
         <ListView
             android:id="@+id/skin_list_view"
             android:listSelector="@android:color/transparent"

@@ -264,7 +264,7 @@ public class AhhhRound extends ApplicationAdapter {
         assetManager.load("inGameLogo.png", Texture.class, rectangularTextureParameter);
 
         assetManager.load("noAds.png", Texture.class, squareTextureParameter);
-        assetManager.load("Achievements.png", Texture.class, squareTextureParameter);
+        assetManager.load("MainMenu.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-off.png", Texture.class, squareTextureParameter);
         assetManager.load("fa-volume-up.png", Texture.class, squareTextureParameter);
         assetManager.load("Screen1 - Tap Anywhere3x.png",Texture.class, squareTextureParameter);
@@ -473,7 +473,7 @@ public class AhhhRound extends ApplicationAdapter {
 //        stage.addActor(removeAdsButton);
 
 
-        achievementButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius,assetManager.get("Achievements.png", Texture.class), roundButtonRadius, 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
+        achievementButton = new com.qeue.madmoji.components.RoundButton(roundButtonRadius,assetManager.get("MainMenu.png", Texture.class), roundButtonRadius, 0, com.qeue.madmoji.components.Color.CLEAR, com.qeue.madmoji.components.Color.OFF_BLACK);
         achievementButton.setPositionCenter(roundButtonRadius, height - roundButtonRadius);
         achievementButton.setClickListener(new Runnable() {
             @Override
@@ -836,9 +836,6 @@ public class AhhhRound extends ApplicationAdapter {
         scoreUpdater.updateWithScore(score);
 
         player.die();
-        if (!gameActivityStore.isMuted()) {
-            deathSound.play();
-        }
 
         if (TAKING_SCREENSHOT_NUMBER != 2) {
             spinPlayerAction = Actions.repeat(-1, Actions.rotateBy(180, 1));
@@ -846,9 +843,9 @@ public class AhhhRound extends ApplicationAdapter {
             movePlayerToCenterAction = Actions.moveTo((float) (midX - playerRadius), (float) (offSetHeight - playerRadius), 0.5f);
             player.addAction(movePlayerToCenterAction);
         }
-        gameOverLabel.setText("");
-        gameOverScoreLabel.setText("");
-        gameOverHighScoreLabel.setText("Main Menu");
+        gameOverLabel.setText("Main Menu");
+        gameOverScoreLabel.setText("SCORE: 0");
+        gameOverHighScoreLabel.setText("BEST: " + gameActivityStore.getHighScore());
 
         for (AhhhroundGameElement element : menuElements) {
             element.fadeIn(0.5);
