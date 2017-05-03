@@ -125,6 +125,7 @@ public class AhhhRound extends ApplicationAdapter {
     private boolean firstTimePlaying;
     private int gameScreenNumber=0;
     private double enemySizeVal = 0.0;
+    private double lastSelectedAngle;
 
     public AhhhRound(Bus bus, GameActivityStore gameActivityStore, CharacterSkinStore characterSkinStore,
                      com.qeue.madmoji.components.BannerAdInterface bannerAdController) {
@@ -668,6 +669,9 @@ public class AhhhRound extends ApplicationAdapter {
         double temp = enemySizeVal + 1;
         double minAngle = player.getCurrentAngleFromCenter() + Math.PI / 2 + Math.PI / 4;
         double selectedAngle = ((minAngle * 1000 + Math.random() * Math.PI * 500.0) / 1000.0)+0.000000000001;
+        if(selectedAngle - lastSelectedAngle != 0 && selectedAngle - lastSelectedAngle < 0.99){
+            selectedAngle = lastSelectedAngle + 1.0;
+        }
         Character enemy = new Character(playerRadius*2, playerRadius, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
         if(temp <= 5) {
             enemy = new Character(playerRadius*(1.5 + (temp) / 10.0), (playerRadius * (1.5 + (temp) / 10.0)) / 2, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
@@ -676,8 +680,13 @@ public class AhhhRound extends ApplicationAdapter {
         enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
         stage.addActor(enemy);
         enemies.add(enemy);
+        lastSelectedAngle = enemies.get(0).getCurrentAngleFromCenter();
         timeSinceLastEnemySpawn = 0;
         enemySizeVal += 1;
+        System.out.println("BUG: SELECTED ANGLE: " + selectedAngle);
+        System.out.println("BUG: LAST " + lastSelectedAngle);
+//        System.out.println("BUG: MINUS " + (selectedAngle - lastSelectedAngle));
+
     }
 
     private void finishedJump() {
@@ -761,6 +770,7 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void gameOver(Character enemyThatKilledPlayer) {
+        lastSelectedAngle = 0.0;
         isTransitioningToMenu = true;
         gamesSinceLastAd++;
         gameState = com.qeue.madmoji.components.GameState.GAME_OVER;
