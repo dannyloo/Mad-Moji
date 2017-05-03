@@ -124,6 +124,7 @@ public class AhhhRound extends ApplicationAdapter {
     private double offSetLabelHeight;
     private boolean firstTimePlaying;
     private int gameScreenNumber=0;
+    private double enemySizeVal = 0.0;
 
     public AhhhRound(Bus bus, GameActivityStore gameActivityStore, CharacterSkinStore characterSkinStore,
                      com.qeue.madmoji.components.BannerAdInterface bannerAdController) {
@@ -621,6 +622,7 @@ public class AhhhRound extends ApplicationAdapter {
             isTransitioningToSleeping = false;
         }
         score = 0;
+        enemySizeVal = 0;
         updateInGameScoreLabel();
         player.addAction(Actions.sequence(Actions.delay(0.5f), Actions.run(new Runnable() {
             @Override
@@ -660,18 +662,20 @@ public class AhhhRound extends ApplicationAdapter {
     }
 
     private void spawnEnemy() {
-        double tempScore = score + 1;
+//        double tempScore = score + 1;
+        double temp = enemySizeVal + 1;
         double minAngle = player.getCurrentAngleFromCenter() + Math.PI / 2 + Math.PI / 4;
         double selectedAngle = ((minAngle * 1000 + Math.random() * Math.PI * 500.0) / 1000.0)+0.000000000001;
         Character enemy = new Character(playerRadius*2, playerRadius, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
-        if(tempScore <= 5) {
-            enemy = new Character(playerRadius*(1.5 + (tempScore) / 10.0), (playerRadius * (1.5 + (tempScore) / 10.0)) / 2, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
-            System.out.println("TEMPSCORE!!!!!!!!!!!!!!!!!" + tempScore);
+        if(temp <= 5) {
+            enemy = new Character(playerRadius*(1.5 + (temp) / 10.0), (playerRadius * (1.5 + (temp) / 10.0)) / 2, selectedAngle, 0.5f, assetManager.get("enemy.png", Texture.class));
+            System.out.println("TEMPSCORE!!!!!!!!!!!!!!!!!" + temp);
         }
-            enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
-            stage.addActor(enemy);
-            enemies.add(enemy);
-            timeSinceLastEnemySpawn = 0;
+        enemy.setPositionAroundCircle(centerCircleRadius, centerCircleCenter);
+        stage.addActor(enemy);
+        enemies.add(enemy);
+        timeSinceLastEnemySpawn = 0;
+        enemySizeVal += 1;
     }
 
     private void finishedJump() {
