@@ -15,6 +15,7 @@ public class GameActivityStore {
     private static final String HAS_FAILED_GAMES_SIGN_IN_ONCE_KEY = "HAS_FAILED_GAMES_SIGN_IN_ONCE";
     private static final String DAYS_PLAYED_IN_A_ROW_KEY = "DAYS_PLAYED_IN_A_ROW";
     private static final String LAST_TIME_PLAYED_KEY = "LAST_TIME_PLAYED";
+    private static final String HAS_SHARED_APP = "HAS_SHARED_APP";
 
     private static boolean instanceExists;
 
@@ -28,6 +29,7 @@ public class GameActivityStore {
     private Boolean hasFailedGamesSignInOnce;
     private Integer daysPlayedInARow;
     private Date lastTimePlayed;
+    private Boolean hasSharedApp;
 
     public GameActivityStore() {
         if (instanceExists) {
@@ -111,6 +113,19 @@ public class GameActivityStore {
     public void setHasRatedApp(boolean hasRatedApp) {
         this.hasRatedApp = hasRatedApp;
         AhhhRound.getPrefs().putBoolean(HAS_RATED_APP_KEY, hasRatedApp);
+        AhhhRound.getPrefs().flush();
+    }
+
+    public boolean hasSharedApp() {
+        if (hasSharedApp == null) {
+            hasSharedApp = AhhhRound.getPrefs().getBoolean(HAS_SHARED_APP);
+        }
+        return hasSharedApp;
+    }
+
+    public void setHasSharedApp(boolean hasSharedApp){
+        this.hasSharedApp = hasSharedApp;
+        AhhhRound.getPrefs().putBoolean(HAS_SHARED_APP, hasSharedApp);
         AhhhRound.getPrefs().flush();
     }
 

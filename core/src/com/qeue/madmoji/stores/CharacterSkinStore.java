@@ -151,6 +151,14 @@ public class CharacterSkinStore {
                         return gameActivityStore.getDaysPlayedInARow() >= 7;
                     }
                 }));
+        skinList.add(new CharacterSkin("blowKiss.png",
+                new String[]{"Share with a friend"},
+                new CharacterSkin.UnlockPredicate() {
+                    @Override
+                    public boolean run() {
+                        return gameActivityStore.hasSharedApp() == true;
+                    }
+                }));
         return skinList;
     }
 
