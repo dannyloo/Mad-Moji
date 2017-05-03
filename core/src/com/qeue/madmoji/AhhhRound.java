@@ -421,8 +421,10 @@ public class AhhhRound extends ApplicationAdapter {
             public void run() {
                 if (gameState.isGameOver() && !isTransitioningToMenu && !takingScreenshot) {
                     takingScreenshot = true;
-                    bus.post(new com.qeue.madmoji.events.ShowShareDialogEvent(score, ScreenshotUtil.takeScreenShot()));
                     takingScreenshot = false;
+                    gameActivityStore.setHasSharedApp(true);
+                    characterSkinStore.checkForAnyNewUnlockedSkins(false);
+                    bus.post(new com.qeue.madmoji.events.ShowShareDialogEvent(score, ScreenshotUtil.takeScreenShot()));
                 }
             }
         });
