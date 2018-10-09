@@ -1,5 +1,5 @@
 # Ahhh-round(Mad Moji)
-Created by QEUE Games
+Created by QEUE Games.
 
 Images, source code, and sound files all belong to QEUE Games. 
 
